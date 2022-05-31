@@ -19,7 +19,7 @@ import java.util.Scanner;
  * @version 2019/06/21
  */
 
-public class MyFileReader extends Application {
+public class MyFileReader {
     // The following line separator should work in all Operating Systems:
     public static final String EOL = System.getProperty("line.separator");
 
@@ -35,37 +35,62 @@ public class MyFileReader extends Application {
                 s.append(scanner.nextLine()).append(EOL);
             }
         } catch (FileNotFoundException e) {
-            Alert alert = new Alert(AlertType.ERROR);
+            /*Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("File not found!");
             alert.setContentText("Error opening file ");
-            alert.showAndWait();
+            alert.showAndWait();*/
+            System.out.println("Error file not found!");
             Platform.exit(); // System.exit(1);
         }
         return s.toString();
     }
 
-    public static void main(String[] args) {
-        Application.launch(args);
-    }
-
-    @Override
-    public void start(Stage stage) throws Exception {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open text File");
-        fileChooser.getExtensionFilters().addAll(
-                new ExtensionFilter("Text Files", "*.txt", ".tex"));
-        File file = fileChooser.showOpenDialog(stage);
-        if (file != null) {
-            String signText = this.read(file);
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Sign");
-            alert.setHeaderText("Look, a Sign");
-            alert.setContentText(signText);
-            alert.showAndWait();
+    public String readOneLine(File file){
+        StringBuilder s = new StringBuilder();
+        try (Scanner scanner = new Scanner(file)){
+            if (scanner.hasNextLine())
+                s.append(scanner.nextLine()).append(EOL);
+        }   catch (FileNotFoundException e) {
+            System.out.println("Error file not found!");
             Platform.exit(); // System.exit(1);
         }
+        return s.toString();
     }
+
+
+    public String[] readLineByLine(File file){
+        String[] lines = new String[getLinesNumber(file)];
+        int i = 0;
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                lines[i] = scanner.nextLine();
+            }
+        } catch (FileNotFoundException e) {
+            //System.out.println("Error file not found!");
+            //Platform.exit(); // System.exit(1);
+            return null;
+        }
+        return lines;
+    }
+
+
+    public int getLinesNumber(File file){
+        int numberOfLines = 0;
+        try (Scanner scanner = new Scanner(file)){
+            while(scanner.hasNextLine()){
+                ++numberOfLines;
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Error file not found!");
+            return -1;
+        }
+        return numberOfLines;
+    }
+
+
+
+
 }
 
 
