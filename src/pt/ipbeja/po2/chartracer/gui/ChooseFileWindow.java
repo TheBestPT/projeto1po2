@@ -29,7 +29,6 @@ public class ChooseFileWindow {
         this.principalPane.setPrefSize(width, heigth);
         this.principalPane.setPadding(new Insets(padding, padding, padding, padding));
         this.principalPane.getChildren().add(this.chooseFileBtn);
-        //chooseFileBtn
     }
 
     public Button getChooseFileBtn() {
@@ -48,13 +47,13 @@ public class ChooseFileWindow {
         this.readedFile = readedFile;
     }
 
+    //Handler for choose file button
     public class ChooseFileHandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Open text File");
-            fileChooser.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("Text Files", "*.txt", ".tex"));
+            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.txt", ".tex"));
             //readedFile = fileChooser;
             File file = fileChooser.showOpenDialog(stage);
         }

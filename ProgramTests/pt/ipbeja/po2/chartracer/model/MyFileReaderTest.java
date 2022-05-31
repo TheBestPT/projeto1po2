@@ -1,14 +1,10 @@
 package pt.ipbeja.po2.chartracer.model;
 
-import javafx.application.Platform;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
 
 class MyFileReaderTest {
 
@@ -16,30 +12,64 @@ class MyFileReaderTest {
     void testReadFile() {
         MyFileReader fileReader = new MyFileReader();
         File file = new File(Paths.get("").toAbsolutePath()+"/files/cities.txt");
-        String outText;
-        if (file != null){
-            outText = fileReader.read(file);
-            //assertEquals(outText, "");
-        }else {
-            outText = "The file given it's not in correct format, is empety or dosen't exist.";
+        PlayersCharts savedFile;
+        try {
+            String outText = "";
+            if (file != null) outText = fileReader.read(file);
+            savedFile = new PlayersCharts(file.getAbsolutePath(), file.getName());
+            savedFile.setContent(outText);
+            System.out.println(outText);
+        } catch (Exception e){
+            System.out.println("File not found");
         }
-        System.out.println(outText);
     }
 
 
     @Test
     void testReadFileLines() {
         MyFileReader fileReader = new MyFileReader();
-        File file = new File(Paths.get("").toAbsolutePath()+"/files/cities.sdtxt");
+        File file = new File(Paths.get("").toAbsolutePath()+"/files/cities.txt");
+        PlayersCharts players;
         try {
-            String[] outText = new String[0];
+            ArrayList<String> outText = new ArrayList<>();
             if (file != null){
                 outText = fileReader.readLineByLine(file);
+
                 //assertEquals(outText, "");
+                players = new PlayersCharts(file.getAbsolutePath(), file.getName(), outText);
+                System.out.println(players.getPlayerCharts().get(0).getNumber());
             }
-            System.out.println(outText);
+            //System.out.println(outText);
         } catch (Exception e){
+            System.out.println(e);
             System.out.println("File not found");
         }
+    }
+
+    @Test
+    void testManySections() {
+        MyFileReader fileReader = new MyFileReader();
+        File file = new File(Paths.get("").toAbsolutePath()+"/files/cities.txt");
+        PlayersCharts players;
+        try {
+            ArrayList<String> outText = new ArrayList<>();
+            if (file != null){
+                outText = fileReader.readLineByLine(file);
+
+                //assertEquals(outText, "");
+                players = new PlayersCharts(file.getAbsolutePath(), file.getName(), outText);
+                System.out.println("Section length: "+players.getSectionLength());
+            }
+            //System.out.println(outText);
+        } catch (Exception e){
+            System.out.println(e);
+            System.out.println("File not found");
+        }
+
+    }
+
+    @Test
+    void testComparable() {
+
     }
 }
