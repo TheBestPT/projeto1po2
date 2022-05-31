@@ -1,6 +1,9 @@
 package pt.ipbeja.po2.chartracer.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class PlayersCharts {
     private String path;
@@ -29,9 +32,11 @@ public class PlayersCharts {
         ArrayList<PlayerChart> playerChartArrayList = new ArrayList<>();
         for (int i = 4; i < allContent.size(); i++){
             String[] splitedContent = allContent.get(i).split(",");
-            if(allContent.get(i) != "\n" && splitedContent.length > 1)
+            //if(allContent.get(i) != "\n" && splitedContent.length > 1)
+            if(!allContent.get(i).isBlank() && splitedContent.length > 1)
                 playerChartArrayList.add(new PlayerChart(splitedContent[0], splitedContent[1], Integer.parseInt(splitedContent[3])));
         }
+        Collections.sort(playerChartArrayList, Comparator.reverseOrder());
         return playerChartArrayList;
     }
 

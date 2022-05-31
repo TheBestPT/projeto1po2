@@ -30,7 +30,16 @@ public class PlayerChart implements Comparable<PlayerChart> {
         //Sorting by first name if last name is same d
         return last == 0 ? this.firstName.compareTo(au.firstName) : last;
         * */
-        boolean higher = this.number > o.number;
-        return 0;
+        /*boolean higher = this.number > o.number;
+        return 0;*/
+        //return this.number > o.number ? 1 : this.number < o.number ? -1 : 0;
+        //int ret = Integer.compare(this.number, o.getNumber()) == 1 ? -1 : 1;
+        //System.out.println(ret);
+        //return Integer.compare(this.number, o.getNumber()) == 1 ? -1 : 1;
+        //return ret;
+        /*if(Integer.compare(this.number, o.getNumber()) == 1)
+            return -1;
+        return 1;*/
+        return Integer.compare(this.number, o.getNumber());
     }
 }
