@@ -18,7 +18,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BarRacerBoard extends VBox /*implements View*/ {
+public class BarRacerBoard extends VBox implements View {
     public ArrayList<BarPlayer> rectanglePlayers = new ArrayList<>();
     public ArrayList<PlayerChart> players;
     public String title;
@@ -35,15 +35,14 @@ public class BarRacerBoard extends VBox /*implements View*/ {
 
 
 
-    public BarRacerBoard(String title, String population, String sources, ArrayList<PlayerChart> players) {
-        this.title = title;
-        this.population = population;
-        this.sources = sources;
-        this.players = players;
-        //this.players = this.getPlayers(Paths.get("").toAbsolutePath()+"/files/cities.txt");
-        //ArrayList<PlayerChart> firstPlayers = this.game.getAllPlayerNames(1500);
+    public BarRacerBoard() {
+        this.players = this.getPlayers(Paths.get("").toAbsolutePath()+"/files/cities.txt");
+        ArrayList<PlayerChart> firstPlayers = this.game.getAllPlayerNames(1500);
+        this.title = this.game.getTitle();
+        this.population = this.game.getPopulation();
+        this.sources = this.game.getSources();
         this.setWindowElments();
-        this.createBars(players);
+        this.createBars(firstPlayers);
     }
 
     private void setWindowElments(){
@@ -64,13 +63,8 @@ public class BarRacerBoard extends VBox /*implements View*/ {
     }
 
 
-
-    public ArrayList<BarPlayer> getRectanglePlayers() {
-        return rectanglePlayers;
-    }
-
-
-    private ArrayList<PlayerChart> getPlayers(String fileChoosed) throws Exception {
+    @Override
+    public ArrayList<PlayerChart> getPlayers(String fileChoosed) {
         this.choosedFile = new File(fileChoosed);
         this.game = new PlayersCharts(this.choosedFile.getAbsolutePath(), this.choosedFile.getName(), reader.readLineByLine(choosedFile));
         this.howManyPlayers = this.game.getSectionLength();

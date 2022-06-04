@@ -1,5 +1,7 @@
 package pt.ipbeja.po2.chartracer.model;
 
-public interface View {
+import java.util.ArrayList;
 
+public interface View {
+    public ArrayList<PlayerChart> getPlayers(String fileChoosed);
 }
