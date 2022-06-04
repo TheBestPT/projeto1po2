@@ -54,12 +54,12 @@ public class MyFileReader {
     }
 
 
+
     public int getLinesNumber(File file){
         int numberOfLines = 0;
         try (Scanner scanner = new Scanner(file)){
-            while(scanner.hasNextLine()){
+            while(scanner.hasNextLine())
                 ++numberOfLines;
-            }
         } catch (FileNotFoundException e) {
             System.out.println("Error file not found!");
             return -1;

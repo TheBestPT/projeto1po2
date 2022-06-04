@@ -1,9 +1,6 @@
 package pt.ipbeja.po2.chartracer.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.*;
 
 public class PlayersCharts {
     private String path;
@@ -11,6 +8,7 @@ public class PlayersCharts {
     private String fileName;
     public String content;
     public ArrayList<PlayerChart> playerCharts;
+    private ArrayList<String> allConentList;
     private String title;
     private String population;
     private String sources;
@@ -21,11 +19,13 @@ public class PlayersCharts {
         this.numberOfLines = numberOfLines;
         this.fileName = fileName;
         this.playerCharts = this.saveChareters(playerCharts);
-        this.getManySections(playerCharts);
+        //this.getManySections(playerCharts);
+        this.sectionLength = Integer.parseInt(playerCharts.get(4));
     }
 
 
     private ArrayList<PlayerChart> saveChareters(ArrayList<String> allContent){
+        this.allConentList = allContent;
         this.title = allContent.get(0);
         this.population = allContent.get(1);
         this.sources = allContent.get(2);
@@ -40,21 +40,22 @@ public class PlayersCharts {
         return playerChartArrayList;
     }
 
-    private void getManySections(ArrayList<String> allContent){
-        int howMany = 0;
-        for (int i = 5; i < allContent.size(); i++){
-            if (allContent.get(i).length() == 0) {
-                howMany = i - 5;
-                break;
-            }
-        }
-        this.sectionLength = howMany;
-    }
-
     public PlayersCharts(String path, String fileName) {
         this.path = path;
         this.fileName = fileName;
     }
+
+    public ArrayList<PlayerChart> getAllPlayerNames(int year){
+        ArrayList<PlayerChart> playerChartArrayList = new ArrayList<>();
+        for (int i = 0; i < this.getPlayerCharts().size(); i++){
+            if (this.getPlayerCharts().get(i).getDate().equals(String.valueOf(year))){
+                playerChartArrayList.add(this.getPlayerCharts().get(i));
+            }
+
+        }
+        return playerChartArrayList;
+    }
+
 
     public int getNumberOfLines() {
         return numberOfLines;
@@ -82,6 +83,17 @@ public class PlayersCharts {
         return fileName;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public String getPopulation() {
+        return population;
+    }
+
+    public String getSources() {
+        return sources;
+    }
 
     public ArrayList<PlayerChart> getPlayerCharts() {
         return playerCharts;
