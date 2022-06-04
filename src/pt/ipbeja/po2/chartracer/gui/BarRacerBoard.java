@@ -1,22 +1,16 @@
 package pt.ipbeja.po2.chartracer.gui;
 
 import javafx.geometry.Pos;
-import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import pt.ipbeja.po2.chartracer.model.MyFileReader;
-import pt.ipbeja.po2.chartracer.model.PlayerChart;
-import pt.ipbeja.po2.chartracer.model.PlayersCharts;
-import pt.ipbeja.po2.chartracer.model.View;
+import pt.ipbeja.po2.chartracer.model.*;
 
 import java.io.File;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
 
 public class BarRacerBoard extends VBox implements View {
     public ArrayList<BarPlayer> rectanglePlayers = new ArrayList<>();
@@ -30,19 +24,28 @@ public class BarRacerBoard extends VBox implements View {
     private File choosedFile;
     private int howManyPlayers;
     private PlayersCharts game;
+    private ArrayList<BarPlayer> currentPlayers = new ArrayList<>();
+    private Model model;
+    private int currentYear;
     //private ArrayList<PlayerChart> players;
 
 
 
 
-    public BarRacerBoard() {
+    public BarRacerBoard() throws InterruptedException {
         this.players = this.getPlayers(Paths.get("").toAbsolutePath()+"/files/cities.txt");
-        ArrayList<PlayerChart> firstPlayers = this.game.getAllPlayerNames(1500);
+        //ArrayList<PlayerChart> firstPlayers = this.game.getAllPlayerNames(1500);
+        this.model = new Model(this, this.currentYear);
         this.title = this.game.getTitle();
         this.population = this.game.getPopulation();
         this.sources = this.game.getSources();
         this.setWindowElments();
-        this.createBars(firstPlayers);
+        //this.createBars(firstPlayers);
+        this.updatePlayers(this.game.getFirstYear());
+        /*this.getChildren().removeAll(this.currentPlayers);
+        this.updatePlayers(this.game.getFirstYear() + 1);*/
+        /*this.model.nextBar(this.game.getFirstYear() + 1);
+        this.title = "u";*/
     }
 
     private void setWindowElments(){
@@ -53,13 +56,16 @@ public class BarRacerBoard extends VBox implements View {
         this.getChildren().addAll(title, population);
     }
 
+
     private void createBars(ArrayList<PlayerChart> players){
+        System.out.println("createBars");
         ArrayList<BarPlayer> barPlayers = new ArrayList<>();
         for (int i = 0; i < players.size(); i++){
             barPlayers.add(new BarPlayer(players.get(i).getNumber(), String.valueOf(players.get(i).getNumber()), players.get(i).getPlayerName()));
             this.getChildren().add(barPlayers.get(i));
-            System.out.println(barPlayers.get(i).getPlayerName());
+            //System.out.println(barPlayers.get(i).getPlayerName());
         }
+        this.currentPlayers = barPlayers;
     }
 
 
@@ -69,5 +75,10 @@ public class BarRacerBoard extends VBox implements View {
         this.game = new PlayersCharts(this.choosedFile.getAbsolutePath(), this.choosedFile.getName(), reader.readLineByLine(choosedFile));
         this.howManyPlayers = this.game.getSectionLength();
         return this.game.getPlayerCharts();
+    }
+
+    @Override
+    public void updatePlayers(int year) {
+        this.createBars(this.game.getAllPlayerNames(year));
     }
 }

@@ -1,4 +1,4 @@
-package pt.ipbeja.po2.chartracer.gui;
+package pt.ipbeja.po2.chartracer.model;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -57,10 +57,6 @@ public class BarPlayer extends StackPane {
         this.playerName = playerName;
     }
 
-    /* @Override
-    public void setWidth(double width) {
-        this.width = width;
-    }*/
     public void setNumberRacer(double numberRacer) {
         this.numberRace = numberRace;
     }

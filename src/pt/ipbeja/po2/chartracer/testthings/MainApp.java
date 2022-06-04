@@ -1,14 +1,9 @@
-package pt.ipbeja.po2.chartracer.gui;
+package pt.ipbeja.po2.chartracer.testthings;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import pt.ipbeja.po2.chartracer.model.MyFileReader;
-
-import java.io.File;
 
 public class MainApp extends Application {
     MyFileReader reader;

@@ -1,4 +1,4 @@
-package pt.ipbeja.po2.chartracer.gui;
+package pt.ipbeja.po2.chartracer.testthings;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

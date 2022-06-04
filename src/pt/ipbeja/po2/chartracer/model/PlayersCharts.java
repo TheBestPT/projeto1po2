@@ -23,6 +23,14 @@ public class PlayersCharts {
         this.sectionLength = Integer.parseInt(playerCharts.get(4));
     }
 
+    public int getFirstYear(){
+        return Integer.parseInt(this.allConentList.get(5).split(",")[0]);
+    }
+
+    public int getLastYear(){
+        return Integer.parseInt(this.allConentList.get(this.allConentList.size() - 1).split(",")[0]);
+    }
+
 
     private ArrayList<PlayerChart> saveChareters(ArrayList<String> allContent){
         this.allConentList = allContent;
