@@ -16,31 +16,32 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MainAppBars extends Application {
-    private MyFileReader reader = new MyFileReader();
+    /*private MyFileReader reader = new MyFileReader();
     private File choosedFile;
     private int howManyPlayers;
     private PlayersCharts game;
-    private ArrayList<PlayerChart> players;
+    private ArrayList<PlayerChart> players;*/
 
 
     @Override
     public void start(Stage stage) throws Exception {
-        this.players = this.getPlayers(Paths.get("").toAbsolutePath()+"/files/cities.txt");
-        ArrayList<PlayerChart> firstPlayers = this.game.getAllPlayerNames(1500);
-        ArrayList<BarPlayer> barPlayers = new ArrayList<>();
+        //this.players = this.getPlayers(Paths.get("").toAbsolutePath()+"/files/cities.txt");
+        //ArrayList<PlayerChart> firstPlayers = this.game.getAllPlayerNames(1500);
+        //ArrayList<BarPlayer> barPlayers = new ArrayList<>();
+        //BarPlayer barPlayer = new BarPlayer(firstPlayers.get(0).getNumber(), String.valueOf(firstPlayers.get(0).getNumber()), firstPlayers.get(0).getPlayerName());
 
-        Platform.exit();
-        /*BarRacerBoard barRacerBoard = new BarRacerBoard(game.getTitle(), game.getPopulation(), game.getSources(), this.players);
-        Scene scene = new Scene(chooseFileWindow.getPrincipalPane());
+        //Platform.exit();
+        BarRacerBoard barRacerBoard = new BarRacerBoard();
+        Scene scene = new Scene(barRacerBoard);
         stage.setScene(scene);
-        stage.show();*/
+        stage.show();
     }
 
 
-    public ArrayList<PlayerChart> getPlayers(String fileChoosed) throws Exception {
+    /*public ArrayList<PlayerChart> getPlayers(String fileChoosed) throws Exception {
         this.choosedFile = new File(fileChoosed);
         this.game = new PlayersCharts(this.choosedFile.getAbsolutePath(), this.choosedFile.getName(), reader.readLineByLine(choosedFile));
         this.howManyPlayers = this.game.getSectionLength();
         return this.game.getPlayerCharts();
-    }
+    }*/
 }
