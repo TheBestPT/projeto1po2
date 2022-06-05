@@ -1,5 +1,6 @@
 package pt.ipbeja.po2.chartracer.gui;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -7,6 +8,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import pt.ipbeja.po2.chartracer.model.*;
 
 import java.io.File;
@@ -25,7 +27,8 @@ public class BarRacerBoardStackPane extends StackPane implements View {
     private String sources;
     private static final int numberOfbars = 10;
     private static final Font TITLEFONT = Font.font("Verdana", FontWeight.EXTRA_BOLD, 15);
-    private static final Font YEARFONT = Font.font("Verdana", FontWeight.EXTRA_BOLD, 20);
+    private static final Font YEARFONT = Font.font("Verdana", FontWeight.EXTRA_BOLD, 80);
+    private static final Font SOURCEFONT = Font.font("Verdana", FontWeight.EXTRA_BOLD, 12);
     private MyFileReader reader = new MyFileReader();
     private File choosedFile;
     private int howManyPlayers;
@@ -33,6 +36,9 @@ public class BarRacerBoardStackPane extends StackPane implements View {
     private ArrayList<BarPlayer> currentPlayers = new ArrayList<>();
     private Model model;
     private int currentYear;
+
+    private final Color[] colorsList = {Color.rgb(188, 244, 222), Color.rgb(205, 229, 215), Color.rgb(222, 214, 209), Color.rgb(238, 198, 202), Color.rgb(255, 183, 195)};
+    private int lastColor = -1;
     private Map<String, Color> usedColors = new HashMap<>();
 
 
@@ -46,6 +52,7 @@ public class BarRacerBoardStackPane extends StackPane implements View {
         this.population = this.game.getPopulation();
         this.sources = this.game.getSources();
         //this.setWindowElments();
+        this.usedColors = this.generateColors(this.players);
         this.updatePlayers(this.game.getFirstYear());
         this.currentYear = this.game.getFirstYear();
         this.model.nextBar();
@@ -55,11 +62,14 @@ public class BarRacerBoardStackPane extends StackPane implements View {
         Text title = new Text(this.title);
         Text population = new Text(this.population);
         Text year = new Text(String.valueOf(this.currentYear));
+        Text source = new Text(this.sources);
         year.setFont(YEARFONT);
         year.setFill(Color.GRAY);
-
+        source.setFill(Color.GRAY);
+        StackPane.setMargin(year, new Insets(2, 2, 2, 2));
+        StackPane.setMargin(source, new Insets(2, 2, 2, 2));
         this.setAlignment(Pos.BOTTOM_RIGHT);
-        this.getChildren().add(year);
+        this.getChildren().addAll(year, source);
         title.setFont(TITLEFONT);
         this.vBox.setAlignment(Pos.TOP_CENTER);
         this.vBox.getChildren().addAll(title, population);
@@ -74,17 +84,41 @@ public class BarRacerBoardStackPane extends StackPane implements View {
         this.setWindowElments();
         ArrayList<BarPlayer> barPlayers = new ArrayList<>();
         for (int i = 0; i < NUMBER_OF_BARS; i++){
-            if (this.currentYear == this.game.getFirstYear()){
+            /*if (this.currentYear == this.game.getFirstYear()){
                 barPlayers.add(new BarPlayer(this.calculateWidth(players.get(i).getNumber(), players.get(0).getNumber()), String.valueOf(players.get(i).getNumber()), players.get(i).getPlayerName()));
                 //this.usedColors.add(barPlayers.get(i).getColorSeted());
                 System.out.println(players.get(i).getPlayerName());
                 this.usedColors.put(players.get(i).getPlayerName(), barPlayers.get(i).getColorSeted());
-            }else
+            }else{
                 barPlayers.add(new BarPlayer(this.calculateWidth(players.get(i).getNumber(), players.get(0).getNumber()), String.valueOf(players.get(i).getNumber()), players.get(i).getPlayerName(), this.usedColors.get(players.get(i).getPlayerName())));
+            }*/
+            barPlayers.add(new BarPlayer(this.calculateWidth(players.get(i).getNumber(), players.get(0).getNumber()), String.valueOf(players.get(i).getNumber()), players.get(i).getPlayerName(), this.usedColors.get(players.get(i).getPlayerName())));
+
             this.vBox.getChildren().add(barPlayers.get(i));
         }
         this.getChildren().add(this.vBox);
         this.currentPlayers = barPlayers;
+    }
+
+    public Map<String, Color> generateColors(ArrayList<PlayerChart> players){
+        Map<String, Color> colorMap = new HashMap<>();
+        for (int i = 0; i < players.size(); i++){
+            colorMap.put(players.get(i).getPlayerName(), this.generateColor());
+        }
+        return colorMap;
+    }
+
+    public Color generateColor(){
+        if (this.lastColor == -1){
+            this.lastColor = (int) (Math.random() * this.colorsList.length - 1);
+            return this.colorsList[this.lastColor];
+        }
+        int color = (int) (Math.random() * this.colorsList.length - 1);
+        do{
+            color = (int) (Math.random() * this.colorsList.length - 1);
+        }while (this.lastColor == color);
+        this.lastColor = color;
+        return colorsList[color];
     }
 
     public double calculateWidth(int currentWidth, int bigger){

@@ -40,7 +40,7 @@ public class BarPlayer extends StackPane {
         Text numberRace = new Text(this.getNumberRace());
         this.setAlignment(Pos.CENTER_LEFT);
         Text playerName = new Text(this.playerName);
-        this.colorSeted = color == null ? this.generateColor() : color;
+        this.colorSeted = color ;//== null ? this.generateColor() : color
         rectangle.setFill(this.colorSeted);
         hBox.getChildren().addAll(rectangle, numberRace);
         this.setPadding(new Insets(2, 2, 2, 2));
