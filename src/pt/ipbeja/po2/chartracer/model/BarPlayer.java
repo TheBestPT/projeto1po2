@@ -15,6 +15,8 @@ public class BarPlayer extends StackPane {
     private double width;
     private static final double HEIGTH = 40;
     private static final Color[] color = {Color.BLUE, Color.GREEN, Color.RED, Color.ORANGE, Color.PURPLE};
+    private Color colorSeted;
+
 
     public BarPlayer(double width, String numberRace, String playerName){
         this.width = width;
@@ -29,13 +31,21 @@ public class BarPlayer extends StackPane {
         Text numberRace = new Text(this.getNumberRace());
         this.setAlignment(Pos.CENTER_LEFT);
         Text playerName = new Text(this.playerName);
-        rectangle.setFill(this.generateColor());
+        this.colorSeted = this.generateColor();
+        rectangle.setFill(this.colorSeted);
         hBox.getChildren().addAll(rectangle, numberRace);
         this.setPadding(new Insets(1, 1, 1, 1));
         this.getChildren().addAll(hBox, playerName);
 
     }
 
+    public Color getColorSeted() {
+        return colorSeted;
+    }
+
+    public void setColorSeted(Color colorSeted) {
+        this.colorSeted = colorSeted;
+    }
 
     public Color generateColor(){
         return color[(int) (Math.random() * color.length - 1)];
@@ -60,4 +70,6 @@ public class BarPlayer extends StackPane {
     public void setNumberRacer(double numberRacer) {
         this.numberRace = numberRace;
     }
+
+
 }

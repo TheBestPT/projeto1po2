@@ -4,29 +4,32 @@ import javafx.application.Platform;
 
 public class Model {
     public View view;
-    private int counter;
+    private int firstYear;
+    private int lastYear;
 
-    public Model(View view, int counter) {
+    public Model(View view, int firstYear, int lastYear) {
         this.view = view;
-        this.counter = counter;
+        this.firstYear = firstYear;
+        this.lastYear = lastYear;
     }
 
     public void nextBar(int counter){
         Thread t = new Thread( () ->  {
-            //for(int i = 0; i < 10; i++) {
-                Platform.runLater( () -> { view.updatePlayers(this.counter);
-                    System.out.println("u");
-                        }
-                );
-
+            for(int i = this.firstYear; i < this.lastYear; i++) {
                 //view.updateCounter(this.counter);
                 try {
-                    Thread.sleep(5000);
+                    Thread.sleep(50);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                this.counter++;
-            //}
+                int tmp = i;
+                Platform.runLater( () -> {
+                    view.removeBars();
+                    view.updatePlayers(tmp);
+                    System.out.println(tmp);
+                });
+                //this.counter++;
+            }
         });
         t.start();
     }

@@ -3,6 +3,7 @@ package pt.ipbeja.po2.chartracer.gui;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -27,6 +28,7 @@ public class BarRacerBoard extends VBox implements View {
     private ArrayList<BarPlayer> currentPlayers = new ArrayList<>();
     private Model model;
     private int currentYear;
+    private ArrayList<Color> usedColors = new ArrayList<>();
     //private ArrayList<PlayerChart> players;
 
 
@@ -35,7 +37,8 @@ public class BarRacerBoard extends VBox implements View {
     public BarRacerBoard() throws InterruptedException {
         this.players = this.getPlayers(Paths.get("").toAbsolutePath()+"/files/cities.txt");
         //ArrayList<PlayerChart> firstPlayers = this.game.getAllPlayerNames(1500);
-        this.model = new Model(this, this.currentYear);
+        this.currentYear = this.game.getFirstYear();
+        this.model = new Model(this, this.game.getFirstYear(), this.game.getLastYear());
         this.title = this.game.getTitle();
         this.population = this.game.getPopulation();
         this.sources = this.game.getSources();
@@ -44,8 +47,8 @@ public class BarRacerBoard extends VBox implements View {
         this.updatePlayers(this.game.getFirstYear());
         /*this.getChildren().removeAll(this.currentPlayers);
         this.updatePlayers(this.game.getFirstYear() + 1);*/
-        /*this.model.nextBar(this.game.getFirstYear() + 1);
-        this.title = "u";*/
+        this.model.nextBar(this.game.getFirstYear() + 1);
+        this.title = "u";
     }
 
     private void setWindowElments(){
@@ -63,6 +66,12 @@ public class BarRacerBoard extends VBox implements View {
         for (int i = 0; i < players.size(); i++){
             barPlayers.add(new BarPlayer(players.get(i).getNumber(), String.valueOf(players.get(i).getNumber()), players.get(i).getPlayerName()));
             this.getChildren().add(barPlayers.get(i));
+            this.usedColors.add(barPlayers.get(i).getColorSeted());
+           /* System.out.println("u");
+            if (this.usedColors.get(i) == null)
+                this.usedColors.add(barPlayers.get(i).getColorSeted());
+            else
+                barPlayers.get(i).setColorSeted(this.usedColors.get(i));*/
             //System.out.println(barPlayers.get(i).getPlayerName());
         }
         this.currentPlayers = barPlayers;
@@ -75,6 +84,10 @@ public class BarRacerBoard extends VBox implements View {
         this.game = new PlayersCharts(this.choosedFile.getAbsolutePath(), this.choosedFile.getName(), reader.readLineByLine(choosedFile));
         this.howManyPlayers = this.game.getSectionLength();
         return this.game.getPlayerCharts();
+    }
+
+    public void removeBars(){
+        this.getChildren().removeAll(this.currentPlayers);
     }
 
     @Override

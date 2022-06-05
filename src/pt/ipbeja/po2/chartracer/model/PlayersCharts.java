@@ -1,5 +1,7 @@
 package pt.ipbeja.po2.chartracer.model;
 
+import javafx.scene.paint.Color;
+
 import java.util.*;
 
 public class PlayersCharts {
@@ -13,6 +15,7 @@ public class PlayersCharts {
     private String population;
     private String sources;
     private int sectionLength;
+
 
     public PlayersCharts(String path, String fileName, ArrayList<String> playerCharts) {
         this.path = path;
