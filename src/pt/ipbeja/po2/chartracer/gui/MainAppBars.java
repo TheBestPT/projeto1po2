@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import pt.ipbeja.po2.chartracer.model.BarPlayer;
 import pt.ipbeja.po2.chartracer.model.MyFileReader;
 import pt.ipbeja.po2.chartracer.model.PlayerChart;
 import pt.ipbeja.po2.chartracer.model.PlayersCharts;
@@ -31,8 +32,11 @@ public class MainAppBars extends Application {
         //BarPlayer barPlayer = new BarPlayer(firstPlayers.get(0).getNumber(), String.valueOf(firstPlayers.get(0).getNumber()), firstPlayers.get(0).getPlayerName());
 
         //Platform.exit();
-        BarRacerBoard barRacerBoard = new BarRacerBoard();
+        BarRacerBoardStackPane barRacerBoard = new BarRacerBoardStackPane();
+//        barRacerBoard.setPrefSize(1000, 800);
         Scene scene = new Scene(barRacerBoard);
+        stage.setMinWidth(BarPlayer.MAX_VALUE+50);
+        stage.setMinHeight(BarPlayer.HEIGTH*BarRacerBoardStackPane.NUMBER_OF_BARS);
         stage.setScene(scene);
         stage.show();
     }

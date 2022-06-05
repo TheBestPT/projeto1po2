@@ -13,12 +13,12 @@ public class Model {
         this.lastYear = lastYear;
     }
 
-    public void nextBar(int counter){
+    public void nextBar(){
         Thread t = new Thread( () ->  {
-            for(int i = this.firstYear; i < this.lastYear; i++) {
+            for(int i = this.firstYear + 1; i < this.lastYear+1; i++) {
                 //view.updateCounter(this.counter);
                 try {
-                    Thread.sleep(50);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -26,7 +26,7 @@ public class Model {
                 Platform.runLater( () -> {
                     view.removeBars();
                     view.updatePlayers(tmp);
-                    System.out.println(tmp);
+                    //System.out.println(tmp);
                 });
                 //this.counter++;
             }

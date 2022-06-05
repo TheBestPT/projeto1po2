@@ -13,28 +13,37 @@ public class BarPlayer extends StackPane {
     private String numberRace;
     private String playerName;
     private double width;
-    private static final double HEIGTH = 40;
-    private static final Color[] color = {Color.BLUE, Color.GREEN, Color.RED, Color.ORANGE, Color.PURPLE};
+    public static final double HEIGTH = 40;
+    private final Color[] colorsList = {Color.rgb(188, 244, 222), Color.rgb(205, 229, 215), Color.rgb(222, 214, 209), Color.rgb(238, 198, 202), Color.rgb(255, 183, 195)};
+    private int lastColor = -1;
     private Color colorSeted;
+    public static int MAX_VALUE = 1000;
 
 
     public BarPlayer(double width, String numberRace, String playerName){
         this.width = width;
         this.numberRace = numberRace;
         this.playerName = playerName;
-        this.createBar();
+        this.createBar(null);
     }
 
-    private void createBar(){
+    public BarPlayer(double width, String numberRace, String playerName, Color color){
+        this.width = width;
+        this.numberRace = numberRace;
+        this.playerName = playerName;
+        this.createBar(color);
+    }
+
+    private void createBar(Color color){
         HBox hBox = new HBox();
         Rectangle rectangle = new Rectangle(this.width, HEIGTH);
         Text numberRace = new Text(this.getNumberRace());
         this.setAlignment(Pos.CENTER_LEFT);
         Text playerName = new Text(this.playerName);
-        this.colorSeted = this.generateColor();
+        this.colorSeted = color == null ? this.generateColor() : color;
         rectangle.setFill(this.colorSeted);
         hBox.getChildren().addAll(rectangle, numberRace);
-        this.setPadding(new Insets(1, 1, 1, 1));
+        this.setPadding(new Insets(2, 2, 2, 2));
         this.getChildren().addAll(hBox, playerName);
 
     }
@@ -48,7 +57,16 @@ public class BarPlayer extends StackPane {
     }
 
     public Color generateColor(){
-        return color[(int) (Math.random() * color.length - 1)];
+        if (this.lastColor == -1){
+            this.lastColor = (int) (Math.random() * this.colorsList.length - 1);
+            return this.colorsList[this.lastColor];
+        }
+        int color = (int) (Math.random() * this.colorsList.length - 1);
+        do{
+            color = (int) (Math.random() * this.colorsList.length - 1);
+        }while (this.lastColor == color);
+        this.lastColor = color;
+        return colorsList[color];
     }
 
     public String getNumberRace() {
