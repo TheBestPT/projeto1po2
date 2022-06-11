@@ -44,11 +44,13 @@ public class BarRacerBoardStackPane extends StackPane implements View {
 
 
     public BarRacerBoardStackPane() {
-        System.out.println(Paths.get("").toAbsolutePath()+"/files/game-of-thrones.txt");
-        this.players = this.getPlayers(Paths.get("").toAbsolutePath()+"/files/game-of-thrones.txt");
+        this.players = this.getPlayers(Paths.get("").toAbsolutePath()+"/files/cities.txt");
         //this.currentYear = this.game.getFirstYear();
-        this.currentYear = this.game.getCurrentYear(this.game.getFirstYear());
+        //this.currentYear = this.game.getCurrentYear(this.game.getFirstYear());
         this.model = new Model(this, this.game.getFirstYear(), this.game.getLastYear(), 100);
+
+        System.out.println(this.game.getLastYear());
+
         this.setPrefSize(BarPlayer.MAX_VALUE+50, BarPlayer.HEIGTH*NUMBER_OF_BARS+300);
         this.title = this.game.getTitle();
         this.population = this.game.getPopulation();

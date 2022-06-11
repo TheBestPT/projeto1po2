@@ -44,18 +44,20 @@ public class PlayersCharts {
     }
 
     public void setEndYear(){
-        int counter = 0;
+        /*int counter = 0;
         for (int i = 0; i < this.allConentList.size(); i++){
-            if(i < 3) continue;
+            if(i < 4) continue;
             if(this.allConentList.get(i).split(",").length <= 1 && !this.allConentList.get(i).isBlank())
                 ++counter;
         }
         //System.out.println(counter);
         --counter;
-        this.endYear = counter;
+        this.endYear = counter;*/
+        this.endYear = this.allYears.size();
     }
 
     public String getCurrentYear(int year){
+        //System.out.println(this.allYears.size());
         return this.allYears.get(year);
     }
 

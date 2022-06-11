@@ -28,8 +28,9 @@ public class MainAppBars extends Application {
 
     @Override
     public void start(Stage stage) {
-        this.createMenu();
-        Scene scene = new Scene(this.mainVBox);
+        //this.createMenu();
+        //Scene scene = new Scene(this.mainVBox);
+        Scene scene = new Scene(new BarRacerBoardStackPane());
         stage.setMinWidth(BarPlayer.MAX_VALUE+50);
         stage.setMinHeight(BarPlayer.HEIGTH*BarRacerBoardStackPane.NUMBER_OF_BARS+200);
         stage.setScene(scene);
