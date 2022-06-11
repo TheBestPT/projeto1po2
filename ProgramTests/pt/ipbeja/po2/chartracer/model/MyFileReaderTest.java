@@ -142,7 +142,7 @@ class MyFileReaderTest {
     @Test
     void testContentSave() throws FileNotFoundException{
         MyFileReader fileReader = new MyFileReader();
-        File file = new File(Paths.get("").toAbsolutePath()+"/files/cities.txt");
+        File file = new File(Paths.get("").toAbsolutePath()+"/files/game-of-thrones.txt");
         PlayersCharts players;
         ArrayList<String> outText = new ArrayList<>();
         if (file != null){

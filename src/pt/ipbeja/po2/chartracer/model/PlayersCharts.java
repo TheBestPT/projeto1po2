@@ -117,14 +117,9 @@ public class PlayersCharts {
 
     public void createStatics(){
         String contentToSave = "";
-        double media = 0;
-        for (int i = 0; i < this.getLastYear(); i++){
-            //media += this.getAllPlayerNames(this.getCurrentYear(i)).size();
-            media += this.playerNameSize(this.getCurrentYear(i));
-        }
-        media /= this.getLastYear();
-
-        contentToSave += "Number od data sets in file: "+this.getLastYear()+"\nFirst date: "+this.getCurrentYear(this.getFirstYear())+"\nLast date: "+this.getCurrentYear(this.getLastYear())+"\nAvarage number of lines in each data set: "+media+"\nNumber of columns in each data set: "+this.allConentList.get(5).split(",").length+"\nMaximum value considering all data sets: "+this.playerCharts.get(0).getNumber()+"\nMinimum value considering all data sets: "+this.playerCharts.get(this.playerCharts.size() - 1).getNumber();
+        int media = this.getPlayerCharts().size()/this.getLastYear();
+        System.out.println(this.getPlayerCharts());
+        //contentToSave += "Number od data sets in file: "+this.getLastYear()+"\nFirst date: "+this.getCurrentYear(this.getFirstYear())+"\nLast date: "+this.getCurrentYear(this.getLastYear())+"\nAvarage number of lines in each data set: "+media+"\nNumber of columns in each data set: "+this.allConentList.get(5).split(",").length+"\nMaximum value considering all data sets: "+this.playerCharts.get(0).getNumber()+"\nMinimum value considering all data sets: "+this.playerCharts.get(this.playerCharts.size() - 1).getNumber();
         System.out.println(contentToSave);
     }
 
@@ -177,4 +172,7 @@ public class PlayersCharts {
         return sectionLength;
     }
 
+    public ArrayList<String> getAllConentList() {
+        return allConentList;
+    }
 }

@@ -45,10 +45,9 @@ public abstract class BarRacerBoard extends StackPane implements View {
      */
     public BarRacerBoard() {
         this.players = this.getPlayers(Paths.get("").toAbsolutePath()+"/files/"+this.fileName());
-        //this.currentYear = this.game.getFirstYear();
-        //this.currentYear = this.game.getCurrentYear(this.game.getFirstYear());
-        System.out.println(this.game.getLastYear());
-        //System.out.println((double) this.game.getPlayerCharts().size()/this.game.getLastYear());
+
+        //System.out.println(this.game.getPlayerCharts().get(1));
+
         this.model = new Model(this, this.game.getFirstYear(), this.game.getLastYear(), this.speedRunFile());
         this.title = this.game.getTitle();
         this.population = this.game.getPopulation();
