@@ -8,7 +8,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import pt.ipbeja.po2.chartracer.model.*;
 
 import java.io.File;
@@ -17,7 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BarRacerBoardStackPane extends StackPane implements View {
+public abstract class BarRacerBoard extends StackPane implements View {
     private ArrayList<BarPlayer> rectanglePlayers = new ArrayList<>();
     private ArrayList<PlayerChart> players;
     private VBox vBox = new VBox();
@@ -25,10 +24,10 @@ public class BarRacerBoardStackPane extends StackPane implements View {
     private String title;
     private String population;
     private String sources;
-    private static final int numberOfbars = 10;
-    private static final Font TITLEFONT = Font.font("Verdana", FontWeight.EXTRA_BOLD, 15);
-    private static final Font YEARFONT = Font.font("Verdana", FontWeight.EXTRA_BOLD, 80);
-    private static final Font SOURCEFONT = Font.font("Verdana", FontWeight.EXTRA_BOLD, 12);
+    public static final int NUMBEROFBARS = 10;
+    public static final Font TITLEFONT = Font.font("Verdana", FontWeight.EXTRA_BOLD, 15);
+    public static final Font YEARFONT = Font.font("Verdana", FontWeight.EXTRA_BOLD, 80);
+    public static final Font SOURCEFONT = Font.font("Verdana", FontWeight.EXTRA_BOLD, 12);
     private MyFileReader reader = new MyFileReader();
     private File choosedFile;
     private int howManyPlayers;
@@ -36,20 +35,19 @@ public class BarRacerBoardStackPane extends StackPane implements View {
     private ArrayList<BarPlayer> currentPlayers = new ArrayList<>();
     private Model model;
     private String currentYear;
-
     private final Color[] colorsList = {Color.rgb(188, 244, 222), Color.rgb(205, 229, 215), Color.rgb(222, 214, 209), Color.rgb(238, 198, 202), Color.rgb(255, 183, 195)};
-    private int lastColor = -1;
+    private int lastColor;
     private Map<String, Color> usedColors = new HashMap<>();
 
 
-
-    public BarRacerBoardStackPane() {
-        System.out.println(Paths.get("").toAbsolutePath()+"/files/game-of-thrones.txt");
-        this.players = this.getPlayers(Paths.get("").toAbsolutePath()+"/files/game-of-thrones.txt");
+    /**
+     * Construtor to create the game
+     */
+    public BarRacerBoard() {
+        this.players = this.getPlayers(Paths.get("").toAbsolutePath()+"/files/"+this.fileName());
         //this.currentYear = this.game.getFirstYear();
-        this.currentYear = this.game.getCurrentYear(this.game.getFirstYear());
-        this.model = new Model(this, this.game.getFirstYear(), this.game.getLastYear(), 100);
-        this.setPrefSize(BarPlayer.MAX_VALUE+50, BarPlayer.HEIGTH*NUMBER_OF_BARS+300);
+        //this.currentYear = this.game.getCurrentYear(this.game.getFirstYear());
+        this.model = new Model(this, this.game.getFirstYear(), this.game.getLastYear(), this.speedRunFile());
         this.title = this.game.getTitle();
         this.population = this.game.getPopulation();
         this.sources = this.game.getSources();
@@ -57,14 +55,28 @@ public class BarRacerBoardStackPane extends StackPane implements View {
         this.usedColors = this.generateColors(this.players);
         this.updatePlayers(this.game.getFirstYear());
         this.currentYear = this.game.getCurrentYear(this.game.getFirstYear());
+        //this.model.nextBar();
+    }
+
+    @Override
+    public void startGame(){
         this.model.nextBar();
     }
 
+    @Override
+    public void stopGame(){
+        this.model.getTread().stop();
+    }
+
+    /**
+     * Method to set all window thins like title population source or setting window property
+     */
     private void setWindowElments(){
         Text title = new Text(this.title);
         Text population = new Text(this.population);
         Text year = new Text(this.currentYear);//new Text(String.valueOf(this.currentYear));
         Text source = new Text(this.sources);
+        this.setPrefSize(BarPlayer.MAX_VALUE+50, BarPlayer.HEIGTH*NUMBER_OF_BARS+this.heigthWindow());
         year.setFont(YEARFONT);
         year.setFill(Color.GRAY);
         source.setFill(Color.GRAY);
@@ -78,8 +90,8 @@ public class BarRacerBoardStackPane extends StackPane implements View {
     }
 
     /**
-     *
-     * @param players
+     * Method to create the bars of the current year and put them in the window
+     * @param players - players are the current players to put in the window
      */
     private void createBars(ArrayList<PlayerChart> players){
         //System.out.println("createBars");
@@ -94,6 +106,11 @@ public class BarRacerBoardStackPane extends StackPane implements View {
         this.currentPlayers = barPlayers;
     }
 
+    /**
+     * Method to generate colors for the bars without repeat them and save them in a map
+     * @param players - all players will be give a color
+     * @return  colorMap - its the map with the colors
+     */
     public Map<String, Color> generateColors(ArrayList<PlayerChart> players){
         Map<String, Color> colorMap = new HashMap<>();
         for (int i = 0; i < players.size(); i++){
@@ -102,12 +119,12 @@ public class BarRacerBoardStackPane extends StackPane implements View {
         return colorMap;
     }
 
+    /**
+     * Secondary method to generate the color
+     * @return - one color random color
+     */
     public Color generateColor(){
-        if (this.lastColor == -1){
-            this.lastColor = (int) (Math.random() * this.colorsList.length - 1);
-            return this.colorsList[this.lastColor];
-        }
-        int color = (int) (Math.random() * this.colorsList.length - 1);
+        int color;
         do{
             color = (int) (Math.random() * this.colorsList.length - 1);
         }while (this.lastColor == color);
@@ -115,6 +132,12 @@ public class BarRacerBoardStackPane extends StackPane implements View {
         return colorsList[color];
     }
 
+    /**
+     * Method for calculate with of each bar, when some bar reach the limit (1000) it stop to grow
+     * @param currentWidth
+     * @param bigger - width of the bigger bar in the window
+     * @return - will return a change or not of the width
+     */
     public double calculateWidth(int currentWidth, int bigger){
         if (bigger < BarPlayer.MAX_VALUE) return currentWidth;
 
@@ -125,6 +148,11 @@ public class BarRacerBoardStackPane extends StackPane implements View {
     }
 
 
+    /**
+     * Method from View to read the file and get all players
+     * @param fileChoosed - filhe choosed to play
+     * @return - all readed players
+     */
     @Override
     public ArrayList<PlayerChart> getPlayers(String fileChoosed) {
         this.choosedFile = new File(fileChoosed);
@@ -133,24 +161,40 @@ public class BarRacerBoardStackPane extends StackPane implements View {
         return this.game.getPlayerCharts();
     }
 
+    /**
+     * Method to remove the old bars, when the time or year change the old bars will be removed by this method
+     */
     public void removeBars(){
         this.getChildren().clear();
         this.vBox.getChildren().clear();
     }
 
-    @Override
-    public void startGame() {
-
-    }
-
-    @Override
-    public void stopGame() {
-
-    }
-
+    /**
+     * Method from View, to update the players on the window
+     * @param year - next year or date time
+     */
     @Override
     public void updatePlayers(int year) {
         this.currentYear = this.game.getCurrentYear(year);
         this.createBars(this.game.getAllPlayerNames(this.game.getCurrentYear(year)));
     }
+
+    /**
+     * Abstract method to give the filename for the game
+     * @return - file name
+     */
+    public abstract String fileName();
+
+    /**
+     * Abstract method to give in what time the thread will sleep, in other words will wait for next frame
+     * @return - time for Thread.sleep()
+     */
+    public abstract int speedRunFile();
+
+    /**
+     * Some files have less bars in the begin, so this method is to set a bigger window
+     * @return - the increment of heigth
+     */
+    public abstract double heigthWindow();
+
 }

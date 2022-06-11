@@ -6,4 +6,6 @@ public interface View {
     public ArrayList<PlayerChart> getPlayers(String fileChoosed);
     public void updatePlayers(int year);
     public void removeBars();
+    public void startGame();
+    public void stopGame();
 }

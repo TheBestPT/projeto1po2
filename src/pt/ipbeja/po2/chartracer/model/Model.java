@@ -6,19 +6,22 @@ public class Model {
     public View view;
     private int firstYear;
     private int lastYear;
+    private int speed;
+    private Thread tread;
 
-    public Model(View view, int firstYear, int lastYear) {
+    public Model(View view, int firstYear, int lastYear, int speed) {
         this.view = view;
         this.firstYear = firstYear;
-        this.lastYear = lastYear - 1;
+        this.lastYear = lastYear;
+        this.speed = speed;
     }
 
     public void nextBar(){
-        Thread t = new Thread( () ->  {
-            for(int i = this.firstYear + 1; i < this.lastYear+1; i++) {
+        this.tread = new Thread( () ->  {
+            for(int i = this.firstYear + 1; i < this.lastYear; i++) {
                 //view.updateCounter(this.counter);
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(this.speed);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -31,6 +34,10 @@ public class Model {
                 //this.counter++;
             }
         });
-        t.start();
+        tread.start();
+    }
+
+    public Thread getTread() {
+        return this.tread;
     }
 }

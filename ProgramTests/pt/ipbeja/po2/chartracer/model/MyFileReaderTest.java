@@ -1,11 +1,9 @@
 package pt.ipbeja.po2.chartracer.model;
 
+import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -14,64 +12,49 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MyFileReaderTest {
+    public int lastColor;
+    private final Color[] colorsList = {Color.rgb(188, 244, 222), Color.rgb(205, 229, 215), Color.rgb(222, 214, 209), Color.rgb(238, 198, 202), Color.rgb(255, 183, 195)};
 
     @Test
-    void testReadFile() {
+    void test1() throws FileNotFoundException {
         MyFileReader fileReader = new MyFileReader();
         File file = new File(Paths.get("").toAbsolutePath()+"/files/cities.txt");
         PlayersCharts savedFile;
-        try {
-            String outText = "";
-            if (file != null) outText = fileReader.read(file);
-            savedFile = new PlayersCharts(file.getAbsolutePath(), file.getName());
-            savedFile.setContent(outText);
-            System.out.println(outText);
-        } catch (Exception e){
-            System.out.println("File not found");
-        }
+        String outText = "";
+        if (file != null) outText = fileReader.read(file);
+        savedFile = new PlayersCharts(file.getAbsolutePath(), file.getName());
+        savedFile.setContent(outText);
+        System.out.println(outText);
     }
 
 
     @Test
-    void testReadFileLines() {
+    void test1WithLines() throws FileNotFoundException{
         MyFileReader fileReader = new MyFileReader();
         File file = new File(Paths.get("").toAbsolutePath()+"/files/cities.txt");
         PlayersCharts players;
-        try {
-            ArrayList<String> outText = new ArrayList<>();
-            if (file != null){
-                outText = fileReader.readLineByLine(file);
+        ArrayList<String> outText = new ArrayList<>();
+        if (file != null){
+            outText = fileReader.readLineByLine(file);
 
-                //assertEquals(outText, "");
-                players = new PlayersCharts(file.getAbsolutePath(), file.getName(), outText);
-                System.out.println(players.getPlayerCharts().get(0).getNumber());
-            }
-            //System.out.println(outText);
-        } catch (Exception e){
-            System.out.println(e);
-            System.out.println("File not found");
+            //assertEquals(outText, "");
+            players = new PlayersCharts(file.getAbsolutePath(), file.getName(), outText);
+            System.out.println(players.getPlayerCharts().get(0).getNumber());
         }
+        //System.out.println(outText);
     }
 
     @Test
-    void testSortToHigherToLower() {
+    void test2() throws FileNotFoundException{
         MyFileReader fileReader = new MyFileReader();
         File file = new File(Paths.get("").toAbsolutePath()+"/files/cities.txt");
         PlayersCharts players;
-        try {
-            ArrayList<String> outText = new ArrayList<>();
-            if (file != null){
-                outText = fileReader.readLineByLine(file);
-
-                //assertEquals(outText, "");
-                players = new PlayersCharts(file.getAbsolutePath(), file.getName(), outText);
-                for (int i = 0; i < players.getPlayerCharts().size(); i++)
-                    System.out.println("Date: "+players.getPlayerCharts().get(i).getDate()+" Player name: "+players.getPlayerCharts().get(i).getPlayerName()+" Numer: "+players.getPlayerCharts().get(i).getNumber());
-            }
-            //System.out.println(outText);
-        } catch (Exception e){
-            System.out.println(e);
-            System.out.println("File not found");
+        ArrayList<String> outText = new ArrayList<>();
+        if (file != null){
+            outText = fileReader.readLineByLine(file);
+            players = new PlayersCharts(file.getAbsolutePath(), file.getName(), outText);
+            for (int i = 0; i < players.getPlayerCharts().size(); i++)
+                System.out.println("Date: "+players.getPlayerCharts().get(i).getDate()+" Player name: "+players.getPlayerCharts().get(i).getPlayerName()+" Numer: "+players.getPlayerCharts().get(i).getNumber());
         }
     }
 
@@ -145,6 +128,20 @@ class MyFileReaderTest {
         } catch (Exception e){
             System.out.println(e);
             System.out.println("File not found");
+        }
+    }
+
+
+    @Test
+    void testGenerateColor() {
+
+        for (int i = 0; i < 12; i++){
+            int color;
+            do{
+                color = (int) (Math.random() * this.colorsList.length - 1);
+            }while (this.lastColor == color);
+            this.lastColor = color;
+            System.out.println(color);
         }
     }
 }
