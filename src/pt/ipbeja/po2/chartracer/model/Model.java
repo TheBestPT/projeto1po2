@@ -13,6 +13,7 @@ public class Model {
         this.view = view;
         this.firstYear = firstYear;
         this.lastYear = lastYear;
+        System.out.println("u "+this.lastYear);
         this.speed = speed;
     }
 

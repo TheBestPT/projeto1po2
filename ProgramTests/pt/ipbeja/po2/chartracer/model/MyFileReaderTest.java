@@ -113,21 +113,15 @@ class MyFileReaderTest {
 
 
     @Test
-    void testHowManyLinesFile() {
+    void testHowManyLinesFile() throws FileNotFoundException{
         MyFileReader fileReader = new MyFileReader();
         File file = new File(Paths.get("").toAbsolutePath()+"/files/cities.txt");
         PlayersCharts players;
-        try {
-            ArrayList<String> outText = new ArrayList<>();
-            if (file != null){
-                outText = fileReader.readLineByLine(file);
-                players = new PlayersCharts(file.getAbsolutePath(), file.getName(), outText);
-                System.out.println("Section length: "+players.getSectionLength());
-            }
-            //System.out.println(outText);
-        } catch (Exception e){
-            System.out.println(e);
-            System.out.println("File not found");
+        ArrayList<String> outText = new ArrayList<>();
+        if (file != null){
+            outText = fileReader.readLineByLine(file);
+            players = new PlayersCharts(file.getAbsolutePath(), file.getName(), outText);
+            System.out.println("Section length: "+players.getSectionLength());
         }
     }
 
@@ -142,6 +136,20 @@ class MyFileReaderTest {
             }while (this.lastColor == color);
             this.lastColor = color;
             System.out.println(color);
+        }
+    }
+
+    @Test
+    void testContentSave() throws FileNotFoundException{
+        MyFileReader fileReader = new MyFileReader();
+        File file = new File(Paths.get("").toAbsolutePath()+"/files/cities.txt");
+        PlayersCharts players;
+        ArrayList<String> outText = new ArrayList<>();
+        if (file != null){
+            outText = fileReader.readLineByLine(file);
+            players = new PlayersCharts(file.getAbsolutePath(), file.getName(), outText);
+            //System.out.println("u");
+            players.createStatics();
         }
     }
 }

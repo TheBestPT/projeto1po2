@@ -51,6 +51,7 @@ public class PlayersCharts {
                 ++counter;
         }
         //System.out.println(counter);
+        --counter;
         this.endYear = counter;
     }
 
@@ -106,6 +107,25 @@ public class PlayersCharts {
             }
         }
         return playerChartArrayList;
+    }
+
+    public int playerNameSize(String year) {
+        return this.getPlayerCharts().stream()
+                .filter((item) -> item.getDate().equals(year))
+                .toArray().length;
+    }
+
+    public void createStatics(){
+        String contentToSave = "";
+        double media = 0;
+        for (int i = 0; i < this.getLastYear(); i++){
+            //media += this.getAllPlayerNames(this.getCurrentYear(i)).size();
+            media += this.playerNameSize(this.getCurrentYear(i));
+        }
+        media /= this.getLastYear();
+
+        contentToSave += "Number od data sets in file: "+this.getLastYear()+"\nFirst date: "+this.getCurrentYear(this.getFirstYear())+"\nLast date: "+this.getCurrentYear(this.getLastYear())+"\nAvarage number of lines in each data set: "+media+"\nNumber of columns in each data set: "+this.allConentList.get(5).split(",").length+"\nMaximum value considering all data sets: "+this.playerCharts.get(0).getNumber()+"\nMinimum value considering all data sets: "+this.playerCharts.get(this.playerCharts.size() - 1).getNumber();
+        System.out.println(contentToSave);
     }
 
 

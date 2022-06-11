@@ -47,6 +47,8 @@ public abstract class BarRacerBoard extends StackPane implements View {
         this.players = this.getPlayers(Paths.get("").toAbsolutePath()+"/files/"+this.fileName());
         //this.currentYear = this.game.getFirstYear();
         //this.currentYear = this.game.getCurrentYear(this.game.getFirstYear());
+        System.out.println(this.game.getLastYear());
+        System.out.println(this.game.getPlayerCharts().size());
         this.model = new Model(this, this.game.getFirstYear(), this.game.getLastYear(), this.speedRunFile());
         this.title = this.game.getTitle();
         this.population = this.game.getPopulation();
@@ -99,7 +101,6 @@ public abstract class BarRacerBoard extends StackPane implements View {
         ArrayList<BarPlayer> barPlayers = new ArrayList<>();
         for (int i = 0; i < (NUMBER_OF_BARS > players.size() ? players.size() : NUMBER_OF_BARS); i++){
             barPlayers.add(new BarPlayer(this.calculateWidth(players.get(i).getNumber(), players.get(0).getNumber()), String.valueOf(players.get(i).getNumber()), players.get(i).getPlayerName(), this.usedColors.get(players.get(i).getPlayerName())));
-
             this.vBox.getChildren().add(barPlayers.get(i));
         }
         this.getChildren().add(this.vBox);
@@ -157,7 +158,7 @@ public abstract class BarRacerBoard extends StackPane implements View {
     public ArrayList<PlayerChart> getPlayers(String fileChoosed) {
         this.choosedFile = new File(fileChoosed);
         this.game = new PlayersCharts(this.choosedFile.getAbsolutePath(), this.choosedFile.getName(), reader.readLineByLine(choosedFile));
-        this.howManyPlayers = this.game.getSectionLength();
+        //this.howManyPlayers = this.game.getSectionLength();
         return this.game.getPlayerCharts();
     }
 
