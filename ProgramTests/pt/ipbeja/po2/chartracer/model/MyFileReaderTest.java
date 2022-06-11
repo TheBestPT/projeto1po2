@@ -127,4 +127,24 @@ class MyFileReaderTest {
 
         System.out.println("The file was write with sucess");
     }
+
+
+    @Test
+    void testHowManyLinesFile() {
+        MyFileReader fileReader = new MyFileReader();
+        File file = new File(Paths.get("").toAbsolutePath()+"/files/cities.txt");
+        PlayersCharts players;
+        try {
+            ArrayList<String> outText = new ArrayList<>();
+            if (file != null){
+                outText = fileReader.readLineByLine(file);
+                players = new PlayersCharts(file.getAbsolutePath(), file.getName(), outText);
+                System.out.println("Section length: "+players.getSectionLength());
+            }
+            //System.out.println(outText);
+        } catch (Exception e){
+            System.out.println(e);
+            System.out.println("File not found");
+        }
+    }
 }

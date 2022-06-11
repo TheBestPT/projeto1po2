@@ -15,6 +15,8 @@ public class PlayersCharts {
     private String population;
     private String sources;
     private int sectionLength;
+    private int endYear;
+    private List<String> allYears = new ArrayList<>();
 
 
     public PlayersCharts(String path, String fileName, ArrayList<String> playerCharts) {
@@ -22,16 +24,49 @@ public class PlayersCharts {
         this.numberOfLines = numberOfLines;
         this.fileName = fileName;
         this.playerCharts = this.saveChareters(playerCharts);
+        this.setEndYear();
+        //System.out.println(this.allYears.get(518));
         //this.getManySections(playerCharts);
-        this.sectionLength = Integer.parseInt(playerCharts.get(4));
+        //this.sectionLength = Integer.parseInt(playerCharts.get(4));
     }
 
-    public int getFirstYear(){
+    /*public int getFirstYear(){
         return Integer.parseInt(this.allConentList.get(5).split(",")[0]);
+    }*/
+    public int getFirstYear(){
+        //return Integer.parseInt(this.allConentList.get(5).split(",")[0]);
+        return 0;
     }
 
     public int getLastYear(){
-        return Integer.parseInt(this.allConentList.get(this.allConentList.size() - 1).split(",")[0]);
+        return this.endYear;
+        //return Integer.parseInt(this.allConentList.get(this.allConentList.size() - 1).split(",")[0]);
+    }
+
+    public void setEndYear(){
+        int counter = 0;
+        for (int i = 0; i < this.allConentList.size(); i++){
+            if(i < 3) continue;
+            if(this.allConentList.get(i).split(",").length <= 1 && !this.allConentList.get(i).isBlank())
+                ++counter;
+        }
+        //System.out.println(counter);
+        this.endYear = counter;
+    }
+
+    public String getCurrentYear(int year){
+        return this.allYears.get(year);
+    }
+
+    public int howManySections(){
+        int counter = 0;
+        for (int i = 0; i < this.allConentList.size(); i++){
+            if(i < 3) continue;
+            if(this.allConentList.get(i).split(",").length <= 1 && !this.allConentList.get(i).isBlank())
+                ++counter;
+        }
+        --counter;
+        return counter;
     }
 
 
@@ -41,11 +76,18 @@ public class PlayersCharts {
         this.population = allContent.get(1);
         this.sources = allContent.get(2);
         ArrayList<PlayerChart> playerChartArrayList = new ArrayList<>();
+        String currentYear = "";
         for (int i = 4; i < allContent.size(); i++){
             String[] splitedContent = allContent.get(i).split(",");
             //if(allContent.get(i) != "\n" && splitedContent.length > 1)
-            if(!allContent.get(i).isBlank() && splitedContent.length > 1)
+            if(!allContent.get(i).isBlank() && splitedContent.length > 1){
                 playerChartArrayList.add(new PlayerChart(splitedContent[0], splitedContent[1], Integer.parseInt(splitedContent[3])));
+                if (!currentYear.equals(splitedContent[0])){
+                    currentYear = splitedContent[0];
+                    this.allYears.add(currentYear);
+                }
+            }
+
         }
         Collections.sort(playerChartArrayList, Comparator.reverseOrder());
         return playerChartArrayList;
@@ -56,16 +98,17 @@ public class PlayersCharts {
         this.fileName = fileName;
     }
 
-    public ArrayList<PlayerChart> getAllPlayerNames(int year){
+    public ArrayList<PlayerChart> getAllPlayerNames(String year){
         ArrayList<PlayerChart> playerChartArrayList = new ArrayList<>();
         for (int i = 0; i < this.getPlayerCharts().size(); i++){
-            if (this.getPlayerCharts().get(i).getDate().equals(String.valueOf(year))){
+            if (this.getPlayerCharts().get(i).getDate().equals(year)){
                 playerChartArrayList.add(this.getPlayerCharts().get(i));
             }
-
         }
         return playerChartArrayList;
     }
+
+
 
 
     public int getNumberOfLines() {

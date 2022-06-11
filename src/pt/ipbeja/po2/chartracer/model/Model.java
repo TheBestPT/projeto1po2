@@ -10,7 +10,7 @@ public class Model {
     public Model(View view, int firstYear, int lastYear) {
         this.view = view;
         this.firstYear = firstYear;
-        this.lastYear = lastYear;
+        this.lastYear = lastYear - 1;
     }
 
     public void nextBar(){

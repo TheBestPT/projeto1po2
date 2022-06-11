@@ -35,7 +35,7 @@ public class BarRacerBoardStackPane extends StackPane implements View {
     private PlayersCharts game;
     private ArrayList<BarPlayer> currentPlayers = new ArrayList<>();
     private Model model;
-    private int currentYear;
+    private String currentYear;
 
     private final Color[] colorsList = {Color.rgb(188, 244, 222), Color.rgb(205, 229, 215), Color.rgb(222, 214, 209), Color.rgb(238, 198, 202), Color.rgb(255, 183, 195)};
     private int lastColor = -1;
@@ -45,23 +45,24 @@ public class BarRacerBoardStackPane extends StackPane implements View {
 
     public BarRacerBoardStackPane() {
         this.players = this.getPlayers(Paths.get("").toAbsolutePath()+"/files/cities.txt");
-        this.currentYear = this.game.getFirstYear();
+        //this.currentYear = this.game.getFirstYear();
+        this.currentYear = this.game.getCurrentYear(this.game.getFirstYear());
         this.model = new Model(this, this.game.getFirstYear(), this.game.getLastYear());
-        this.setPrefSize(BarPlayer.MAX_VALUE+50, BarPlayer.HEIGTH*NUMBER_OF_BARS);
+        this.setPrefSize(BarPlayer.MAX_VALUE+50, BarPlayer.HEIGTH*NUMBER_OF_BARS+300);
         this.title = this.game.getTitle();
         this.population = this.game.getPopulation();
         this.sources = this.game.getSources();
         //this.setWindowElments();
         this.usedColors = this.generateColors(this.players);
         this.updatePlayers(this.game.getFirstYear());
-        this.currentYear = this.game.getFirstYear();
+        this.currentYear = this.game.getCurrentYear(this.game.getFirstYear());
         this.model.nextBar();
     }
 
     private void setWindowElments(){
         Text title = new Text(this.title);
         Text population = new Text(this.population);
-        Text year = new Text(String.valueOf(this.currentYear));
+        Text year = new Text(this.currentYear);//new Text(String.valueOf(this.currentYear));
         Text source = new Text(this.sources);
         year.setFont(YEARFONT);
         year.setFill(Color.GRAY);
@@ -83,15 +84,7 @@ public class BarRacerBoardStackPane extends StackPane implements View {
         //System.out.println("createBars");
         this.setWindowElments();
         ArrayList<BarPlayer> barPlayers = new ArrayList<>();
-        for (int i = 0; i < NUMBER_OF_BARS; i++){
-            /*if (this.currentYear == this.game.getFirstYear()){
-                barPlayers.add(new BarPlayer(this.calculateWidth(players.get(i).getNumber(), players.get(0).getNumber()), String.valueOf(players.get(i).getNumber()), players.get(i).getPlayerName()));
-                //this.usedColors.add(barPlayers.get(i).getColorSeted());
-                System.out.println(players.get(i).getPlayerName());
-                this.usedColors.put(players.get(i).getPlayerName(), barPlayers.get(i).getColorSeted());
-            }else{
-                barPlayers.add(new BarPlayer(this.calculateWidth(players.get(i).getNumber(), players.get(0).getNumber()), String.valueOf(players.get(i).getNumber()), players.get(i).getPlayerName(), this.usedColors.get(players.get(i).getPlayerName())));
-            }*/
+        for (int i = 0; i < (NUMBER_OF_BARS > players.size() ? players.size() : NUMBER_OF_BARS); i++){
             barPlayers.add(new BarPlayer(this.calculateWidth(players.get(i).getNumber(), players.get(0).getNumber()), String.valueOf(players.get(i).getNumber()), players.get(i).getPlayerName(), this.usedColors.get(players.get(i).getPlayerName())));
 
             this.vBox.getChildren().add(barPlayers.get(i));
@@ -146,7 +139,7 @@ public class BarRacerBoardStackPane extends StackPane implements View {
 
     @Override
     public void updatePlayers(int year) {
-        this.currentYear = year;
-        this.createBars(this.game.getAllPlayerNames(year));
+        this.currentYear = this.game.getCurrentYear(year);
+        this.createBars(this.game.getAllPlayerNames(this.game.getCurrentYear(year)));
     }
 }
