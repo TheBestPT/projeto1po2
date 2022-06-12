@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class MyFileReader {
 
     public static final String EOL = System.getProperty("line.separator");
-    public static final String[] ALLOWEDFILES = new String[] {"cities.txt", "endgame.txt", "game-of-thrones.txt"};
+    public static final String[] ALLOWEDFILES = new String[] {"cities.txt", "endgame.txt", "game-of-thrones.txt", "brands.txt"};
 
 
     public String read(File file) {

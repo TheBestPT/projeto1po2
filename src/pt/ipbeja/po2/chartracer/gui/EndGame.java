@@ -17,7 +17,7 @@ public class EndGame extends BarRacerBoard {
     }
 
     @Override
-    public void createStatics() {
-
+    public String createStatics() {
+        return "";
     }
 }

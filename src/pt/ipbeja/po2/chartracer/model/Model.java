@@ -2,18 +2,22 @@ package pt.ipbeja.po2.chartracer.model;
 
 import javafx.application.Platform;
 
+import java.io.IOException;
+
 public class Model {
     private View view;
     private int firstYear;
     private int lastYear;
     private int speed;
     private Thread tread;
+    private boolean generateStatics;
 
-    public Model(View view, int firstYear, int lastYear, int speed) {
+    public Model(View view, int firstYear, int lastYear, int speed, boolean generateStatics) {
         this.view = view;
         this.firstYear = firstYear;
         this.lastYear = lastYear;
         this.speed = speed;
+        this.generateStatics = generateStatics;
     }
 
     public void nextBar(){
@@ -30,6 +34,11 @@ public class Model {
                     view.updatePlayers(tmp);
                 });
             }
+            try {
+                if (this.generateStatics) this.view.createStatics();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
         tread.start();
     }
@@ -37,4 +46,6 @@ public class Model {
     public Thread getTread() {
         return this.tread;
     }
+
+
 }

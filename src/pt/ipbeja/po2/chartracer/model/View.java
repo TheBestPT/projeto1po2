@@ -9,5 +9,5 @@ public interface View {
     public void removeBars();
     public void startGame();
     public void stopGame();
-    public void createStatics() throws IOException;
+    public String createStatics() throws IOException;
 }

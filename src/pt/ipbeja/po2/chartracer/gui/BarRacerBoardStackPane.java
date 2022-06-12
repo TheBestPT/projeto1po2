@@ -45,10 +45,10 @@ public class BarRacerBoardStackPane extends StackPane implements View {
 
 
 
-    public BarRacerBoardStackPane(String fileName) {
+    public BarRacerBoardStackPane(String fileName, boolean generateStatics) {
         this.players = this.getPlayers(Paths.get("").toAbsolutePath()+"/files/"+fileName);
         this.fileName = fileName;
-        this.model = new Model(this, this.game.getFirstYear(), this.game.getLastYear(), 100);
+        this.model = new Model(this, this.game.getFirstYear(), this.game.getLastYear(), 100, generateStatics);
         this.setPrefSize(BarPlayer.MAX_VALUE+50, BarPlayer.HEIGTH*NUMBER_OF_BARS+300);
         this.title = this.game.getTitle();
         this.population = this.game.getPopulation();
@@ -148,9 +148,11 @@ public class BarRacerBoardStackPane extends StackPane implements View {
     }
 
     @Override
-    public void createStatics() throws IOException {
-        this.game.createStatics(this.fileName);
+    public String createStatics() throws IOException {
+        return this.game.createStatics(this.fileName);
     }
+
+
 
     @Override
     public void updatePlayers(int year) {

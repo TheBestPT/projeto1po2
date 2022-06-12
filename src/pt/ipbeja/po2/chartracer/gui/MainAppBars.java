@@ -6,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -20,22 +19,28 @@ import pt.ipbeja.po2.chartracer.model.MyFileReader;
 import pt.ipbeja.po2.chartracer.model.View;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
 
 public class MainAppBars extends Application {
     private VBox mainVBox;
-    private Button cities, endGame, gameOfThrones;
+    /*private Button cities, endGame, gameOfThrones;
     private Cities citiesGame;
     private EndGame endGameGame;
     private GameOfThrones gameOfThronesGame;
-    private Text title;
+    private Text title;*/
     public static double BUTTONWIDTH = 200;
     public static final Font TITLEFONTMAINAPP = Font.font("Verdana", FontWeight.EXTRA_BOLD, 40);
     private Button chooseFileButton;
     private BarRacerBoardStackPane barRacerBoard;
     private Text gameTitle;
     private boolean isPlaying = false;
-    private MenuBar menuBar;
+    private MenuBar optionMenu;
+    private Menu dataMenu;
+    private CheckMenuItem staticsCheck;
     private Stage principalStage;
+    private String fileName;
+    private boolean staticsSelected = false;
 
     @Override
     public void start(Stage stage) {
@@ -65,20 +70,27 @@ public class MainAppBars extends Application {
         this.gameTitle.setFont(TITLEFONTMAINAPP);
         Menu fileMenu = new Menu("Options");
         MenuItem exit = new MenuItem("Exit");
-        exit.setOnAction(new ExitButtonHandler());
         fileMenu.getItems().add(exit);
-        this.menuBar = new MenuBar(fileMenu);
+        this.dataMenu = new Menu("Data");
+        this.staticsCheck = new CheckMenuItem("Statics");
+        this.dataMenu.getItems().add(this.staticsCheck);
+        this.staticsCheck.setSelected(this.staticsSelected);
+        this.staticsCheck.setOnAction(new StaticsHanlder());
+        //this.staticsMenu.setVisible(false);
+        exit.setOnAction(new ExitButtonHandler());
+        this.optionMenu = new MenuBar(fileMenu);
+        this.optionMenu.getMenus().add(this.dataMenu);
         this.mainVBox = new VBox();
         this.mainVBox.setAlignment(Pos.TOP_CENTER);
         VBox vBoxChoose = new VBox();
         vBoxChoose.setAlignment(Pos.CENTER);
         vBoxChoose.setPadding(new Insets(20));
         vBoxChoose.getChildren().addAll(this.gameTitle, this.chooseFileButton);
-        this.mainVBox.getChildren().addAll(this.menuBar, vBoxChoose);
+        this.mainVBox.getChildren().addAll(this.optionMenu,  vBoxChoose);
         this.chooseFileButton.setOnAction(new ChooseFileHandler(this.principalStage, this.mainVBox));
     }
 
-    public void createMenu(){
+    /*public void createMenu(){
         this.mainVBox = new VBox();
         this.citiesGame = new Cities();
         this.endGameGame = new EndGame();
@@ -96,26 +108,29 @@ public class MainAppBars extends Application {
         this.endGame.setOnAction(new ButtonHandler(this.endGameGame, this.mainVBox, this.endGameGame));
         this.gameOfThrones.setOnAction(new ButtonHandler(this.gameOfThronesGame, this.mainVBox, this.gameOfThronesGame));
         this.mainVBox.getChildren().addAll(this.title, this.cities, this.endGame, this.gameOfThrones);
-    }
+    }*/
 
     public void clearWindow(){
         this.mainVBox.getChildren().clear();
     }
 
     public void startGame(View view){
+        this.dataMenu.setVisible(false);
         view.startGame();
     }
 
     public void stopGame(View view){
         this.setPlaying();
+        this.dataMenu.setVisible(true);
         view.stopGame();
     }
+
 
     public void setPlaying() {
         this.isPlaying = !this.isPlaying;
     }
 
-    public class ButtonHandler implements EventHandler<ActionEvent> {
+    /*public class ButtonHandler implements EventHandler<ActionEvent> {
         private Node n;
         private VBox vBox;
         private View view;
@@ -131,6 +146,26 @@ public class MainAppBars extends Application {
             this.vBox.setAlignment(Pos.TOP_LEFT);
             this.vBox.getChildren().add(this.n);
             startGame(view);
+        }
+    }*/
+
+    public class StaticsHanlder implements EventHandler<ActionEvent>{
+
+        @Override
+        public void handle(ActionEvent actionEvent)  {
+            CheckMenuItem check = (CheckMenuItem) actionEvent.getSource();
+            Alert info = new Alert(Alert.AlertType.INFORMATION);
+            if (check.isSelected()){
+                info.setTitle("File will be genereted");
+                info.setHeaderText("File will be generated after game close in: "+ Paths.get("").toAbsolutePath() + "/files/nameOfFile-HH-MM-SS.txt");
+                staticsSelected = true;
+                info.showAndWait();
+            }else{
+                info.setTitle("File will not be genereted");
+                info.setHeaderText("No file will be generate");
+                staticsSelected = false;
+                info.showAndWait();
+            }
         }
     }
 
@@ -175,7 +210,7 @@ public class MainAppBars extends Application {
                 return;
             }
             clearWindow();
-            this.vBox.getChildren().add(menuBar);
+            this.vBox.getChildren().add(optionMenu);
             this.vBox.setAlignment(Pos.TOP_LEFT);
             setPlaying();
             createGame(file.getName());
@@ -183,7 +218,8 @@ public class MainAppBars extends Application {
     }
 
     public void createGame(String fileName){
-        this.barRacerBoard = new BarRacerBoardStackPane(fileName);
+        this.barRacerBoard = new BarRacerBoardStackPane(fileName, this.staticsCheck.isSelected());
+        this.fileName = fileName;
         this.mainVBox.getChildren().add(this.barRacerBoard);
         this.startGame(this.barRacerBoard);
     }
