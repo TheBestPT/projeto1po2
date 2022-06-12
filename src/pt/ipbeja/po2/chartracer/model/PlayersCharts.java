@@ -1,8 +1,5 @@
 package pt.ipbeja.po2.chartracer.model;
 
-import javafx.scene.paint.Color;
-
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,7 +12,7 @@ public class PlayersCharts {
     private String fileName;
     public String content;
     public ArrayList<PlayerChart> playerCharts;
-    private ArrayList<String> allConentList;
+    private ArrayList<String> allContentList;
     private String title;
     private String population;
     private String sources;
@@ -61,16 +58,16 @@ public class PlayersCharts {
         this.endYear = this.allYears.size();
     }
 
-    public String getCurrentYear(int year){
+    public String getYear(int year){
         //System.out.println(this.allYears.size());
         return this.allYears.get(year);
     }
 
     public int howManySections(){
         int counter = 0;
-        for (int i = 0; i < this.allConentList.size(); i++){
+        for (int i = 0; i < this.allContentList.size(); i++){
             if(i < 3) continue;
-            if(this.allConentList.get(i).split(",").length <= 1 && !this.allConentList.get(i).isBlank())
+            if(this.allContentList.get(i).split(",").length <= 1 && !this.allContentList.get(i).isBlank())
                 ++counter;
         }
         --counter;
@@ -79,7 +76,7 @@ public class PlayersCharts {
 
 
     private ArrayList<PlayerChart> saveChareters(ArrayList<String> allContent){
-        this.allConentList = allContent;
+        this.allContentList = allContent;
         this.title = allContent.get(0);
         this.population = allContent.get(1);
         this.sources = allContent.get(2);
@@ -127,11 +124,18 @@ public class PlayersCharts {
         String newPath = date.getHours()+"-"+date.getMinutes()+"-"+date.getSeconds()+"-"+fileName;
         int media = this.getPlayerCharts().size()/this.getLastYear();
         List<String> contentToSave = new ArrayList<>();
-        contentToSave.add("Number od data sets in file: "+this.getLastYear()+"\nFirst date: "+this.getCurrentYear(this.getFirstYear())+
-                "\nLast date: "+this.getCurrentYear(this.getLastYear() - 1)+"\nAvarage number of lines in each data set: "+media+"\nNumber of columns in each data set: "
-                +this.allConentList.get(5).split(",").length+"\nMaximum value considering all data sets: "
-                +this.playerCharts.get(0).getNumber()+"\nMinimum value considering all data sets: "
-                +this.playerCharts.get(this.playerCharts.size() - 1).getNumber());
+        //+"\nFirst date: "+this.getCurrentYear(this.getFirstYear()) +
+        //                "\nLast date: "+this.getCurrentYear(this.getLastYear() - 1)+"\nAvarage number of lines in each data set: "+media+"\nNumber of columns in each data set: "
+        //                +this.allConentList.get(5).split(",").length+"\nMaximum value considering all data sets: "
+        //                +this.playerCharts.get(0).getNumber()+"\nMinimum value considering all data sets: "
+        //                +this.playerCharts.get(this.playerCharts.size() - 1).getNumber()
+        contentToSave.add("Number od data sets in file: "+this.getLastYear());
+        contentToSave.add("First date: "+this.getYear(this.getFirstYear()));
+        contentToSave.add("Last date: "+this.getYear(this.getLastYear() - 1));
+        contentToSave.add("Avarage number of lines in each data set: "+media);
+        contentToSave.add("Number of columns in each data set: "+this.allContentList.get(5).split(",").length);
+        contentToSave.add("Maximum value considering all data sets: "+this.playerCharts.get(0).getNumber());
+        contentToSave.add("Minimum value considering all data sets: "+this.playerCharts.get(this.playerCharts.size() - 1).getNumber());
         Files.write(Path.of(Paths.get("").toAbsolutePath() + "/files/" + newPath), contentToSave);
         return Paths.get("").toAbsolutePath() + "/files/" + newPath;
     }
@@ -185,7 +189,7 @@ public class PlayersCharts {
         return sectionLength;
     }
 
-    public ArrayList<String> getAllConentList() {
-        return allConentList;
+    public ArrayList<String> getAllContentList() {
+        return allContentList;
     }
 }

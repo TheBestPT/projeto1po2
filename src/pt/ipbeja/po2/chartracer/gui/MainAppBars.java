@@ -114,7 +114,7 @@ public class MainAppBars extends Application {
         this.mainVBox.getChildren().clear();
     }
 
-    public void startGame(View view){
+    public void startGame(View view) {
         this.dataMenu.setVisible(false);
         view.startGame();
     }
@@ -217,7 +217,7 @@ public class MainAppBars extends Application {
         }
     }
 
-    public void createGame(String fileName){
+    public void createGame(String fileName)  {
         this.barRacerBoard = new BarRacerBoardStackPane(fileName, this.staticsCheck.isSelected());
         this.fileName = fileName;
         this.mainVBox.getChildren().add(this.barRacerBoard);

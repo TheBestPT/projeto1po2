@@ -55,18 +55,18 @@ public abstract class BarRacerBoard extends StackPane implements View {
         //this.setWindowElments();
         this.usedColors = this.generateColors(this.players);
         this.updatePlayers(this.game.getFirstYear());
-        this.currentYear = this.game.getCurrentYear(this.game.getFirstYear());
+        this.currentYear = this.game.getYear(this.game.getFirstYear());
         //this.model.nextBar();
     }
 
     @Override
-    public void startGame(){
+    public void startGame() {
         this.model.nextBar();
     }
 
     @Override
     public void stopGame(){
-        this.model.getTread().stop();
+        this.model.getThread().stop();
     }
 
     /**
@@ -175,8 +175,8 @@ public abstract class BarRacerBoard extends StackPane implements View {
      */
     @Override
     public void updatePlayers(int year) {
-        this.currentYear = this.game.getCurrentYear(year);
-        this.createBars(this.game.getAllPlayerNames(this.game.getCurrentYear(year)));
+        this.currentYear = this.game.getYear(year);
+        this.createBars(this.game.getAllPlayerNames(this.game.getYear(year)));
     }
 
     /**

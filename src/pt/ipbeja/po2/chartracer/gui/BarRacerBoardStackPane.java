@@ -8,7 +8,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import pt.ipbeja.po2.chartracer.model.*;
 
 import java.io.File;
@@ -55,7 +54,7 @@ public class BarRacerBoardStackPane extends StackPane implements View {
         this.sources = this.game.getSources();
         this.usedColors = this.generateColors(this.players);
         this.updatePlayers(this.game.getFirstYear());
-        this.currentYear = this.game.getCurrentYear(this.game.getFirstYear());
+        this.currentYear = this.game.getYear(this.game.getFirstYear());
         //this.model.nextBar();
     }
 
@@ -144,7 +143,7 @@ public class BarRacerBoardStackPane extends StackPane implements View {
 
     @Override
     public void stopGame() {
-        this.model.getTread().stop();
+        this.model.getThread().stop();
     }
 
     @Override
@@ -156,7 +155,7 @@ public class BarRacerBoardStackPane extends StackPane implements View {
 
     @Override
     public void updatePlayers(int year) {
-        this.currentYear = this.game.getCurrentYear(year);
-        this.createBars(this.game.getAllPlayerNames(this.game.getCurrentYear(year)));
+        this.currentYear = this.game.getYear(year);
+        this.createBars(this.game.getAllPlayerNames(this.game.getYear(year)));
     }
 }

@@ -9,7 +9,7 @@ public class Model {
     private int firstYear;
     private int lastYear;
     private int speed;
-    private Thread tread;
+    private Thread thread;
     private boolean generateStatics;
 
     public Model(View view, int firstYear, int lastYear, int speed, boolean generateStatics) {
@@ -20,8 +20,13 @@ public class Model {
         this.generateStatics = generateStatics;
     }
 
-    public void nextBar(){
-        this.tread = new Thread( () ->  {
+    public void nextBar()  {
+        try {
+            if (this.generateStatics) this.view.createStatics();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        this.thread = new Thread( () ->  {
             for(int i = this.firstYear + 1; i < this.lastYear; i++) {
                 try {
                     Thread.sleep(this.speed);
@@ -34,17 +39,12 @@ public class Model {
                     view.updatePlayers(tmp);
                 });
             }
-            try {
-                if (this.generateStatics) this.view.createStatics();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         });
-        tread.start();
+        thread.start();
     }
 
-    public Thread getTread() {
-        return this.tread;
+    public Thread getThread() {
+        return this.thread;
     }
 
 
