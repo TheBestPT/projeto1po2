@@ -4,17 +4,22 @@ package pt.ipbeja.po2.chartracer.gui;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import pt.ipbeja.po2.chartracer.model.BarPlayer;
+import pt.ipbeja.po2.chartracer.model.MyFileReader;
 import pt.ipbeja.po2.chartracer.model.View;
+
+import java.io.File;
 
 public class MainAppBars extends Application {
     private VBox mainVBox;
@@ -23,20 +28,55 @@ public class MainAppBars extends Application {
     private EndGame endGameGame;
     private GameOfThrones gameOfThronesGame;
     private Text title;
-    public static double BUTTONWIDTH = 250;
-    public static final Font TITLEFONTMAINAPP = Font.font("Verdana", FontWeight.EXTRA_BOLD, 50);
+    public static double BUTTONWIDTH = 200;
+    public static final Font TITLEFONTMAINAPP = Font.font("Verdana", FontWeight.EXTRA_BOLD, 40);
+    private Button chooseFileButton;
+    private BarRacerBoardStackPane barRacerBoard;
+    private Text gameTitle;
+    private boolean isPlaying = false;
+    private MenuBar menuBar;
+    private Stage principalStage;
 
     @Override
     public void start(Stage stage) {
+        this.principalStage = stage;
         //this.createMenu();
         //Scene scene = new Scene(this.mainVBox);
-        Scene scene = new Scene(new BarRacerBoardStackPane());
-        stage.setMinWidth(BarPlayer.MAX_VALUE+50);
-        stage.setMinHeight(BarPlayer.HEIGTH*BarRacerBoardStackPane.NUMBER_OF_BARS+200);
-        stage.setScene(scene);
-        stage.show();
+        this.createMain();
+        Scene scene = new Scene(this.mainVBox);
+        this.principalStage.setMinWidth(BarPlayer.MAX_VALUE+50);
+        this.principalStage.setMinHeight(BarPlayer.HEIGTH*BarRacerBoardStackPane.NUMBER_OF_BARS+200);
+        this.principalStage.setScene(scene);
+        this.principalStage.show();
     }
 
+    public void createScene(){
+        Scene scene = new Scene(this.mainVBox);
+        this.principalStage.setWidth(BarPlayer.MAX_VALUE+50);
+        this.principalStage.setHeight(BarPlayer.HEIGTH*BarRacerBoardStackPane.NUMBER_OF_BARS+200);
+        this.principalStage.setScene(scene);
+    }
+
+    public void createMain(){
+        /* Create buttons and titles*/
+        this.chooseFileButton = new Button("Choose file");
+        this.chooseFileButton.setPrefWidth(BUTTONWIDTH);
+        this.gameTitle = new Text("Choose a file: ");
+        this.gameTitle.setFont(TITLEFONTMAINAPP);
+        Menu fileMenu = new Menu("Options");
+        MenuItem exit = new MenuItem("Exit");
+        exit.setOnAction(new ExitButtonHandler());
+        fileMenu.getItems().add(exit);
+        this.menuBar = new MenuBar(fileMenu);
+        this.mainVBox = new VBox();
+        this.mainVBox.setAlignment(Pos.TOP_CENTER);
+        VBox vBoxChoose = new VBox();
+        vBoxChoose.setAlignment(Pos.CENTER);
+        vBoxChoose.setPadding(new Insets(20));
+        vBoxChoose.getChildren().addAll(this.gameTitle, this.chooseFileButton);
+        this.mainVBox.getChildren().addAll(this.menuBar, vBoxChoose);
+        this.chooseFileButton.setOnAction(new ChooseFileHandler(this.principalStage, this.mainVBox));
+    }
 
     public void createMenu(){
         this.mainVBox = new VBox();
@@ -67,7 +107,12 @@ public class MainAppBars extends Application {
     }
 
     public void stopGame(View view){
+        this.setPlaying();
         view.stopGame();
+    }
+
+    public void setPlaying() {
+        this.isPlaying = !this.isPlaying;
     }
 
     public class ButtonHandler implements EventHandler<ActionEvent> {
@@ -87,6 +132,60 @@ public class MainAppBars extends Application {
             this.vBox.getChildren().add(this.n);
             startGame(view);
         }
+    }
+
+    public class ExitButtonHandler implements EventHandler<ActionEvent>{
+
+        @Override
+        public void handle(ActionEvent actionEvent) {
+            if (!isPlaying) System.exit(0);
+            stopGame(barRacerBoard);
+            clearWindow();
+            createMain();
+            createScene();
+        }
+    }
+
+    public class ChooseFileHandler implements EventHandler<ActionEvent>{
+        private Stage stage;
+        private VBox vBox;
+
+        public ChooseFileHandler(Stage stage, VBox vBox) {
+            this.stage = stage;
+            this.vBox = vBox;
+        }
+
+        @Override
+        public void handle(ActionEvent actionEvent) {
+            FileChooser fileChooser = new FileChooser();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error no  file added.");
+            alert.setHeaderText("You have to choose a file!!");
+            alert.setContentText("You need to choose a file for play the game");
+            fileChooser.setTitle("Open text File");
+            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.txt", ".tex"));
+            File file = fileChooser.showOpenDialog(this.stage);
+            if (file == null){
+                alert.showAndWait();
+                return;
+            }
+            if (MyFileReader.verifyFile(file) == -1) {
+                alert.setHeaderText("Error file added it's not expected");
+                alert.showAndWait();
+                return;
+            }
+            clearWindow();
+            this.vBox.getChildren().add(menuBar);
+            this.vBox.setAlignment(Pos.TOP_LEFT);
+            setPlaying();
+            createGame(file.getName());
+        }
+    }
+
+    public void createGame(String fileName){
+        this.barRacerBoard = new BarRacerBoardStackPane(fileName);
+        this.mainVBox.getChildren().add(this.barRacerBoard);
+        this.startGame(this.barRacerBoard);
     }
 
 

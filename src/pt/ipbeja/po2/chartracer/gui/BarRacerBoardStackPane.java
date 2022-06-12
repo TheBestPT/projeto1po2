@@ -12,6 +12,7 @@ import javafx.scene.text.TextAlignment;
 import pt.ipbeja.po2.chartracer.model.*;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +21,7 @@ import java.util.Map;
 public class BarRacerBoardStackPane extends StackPane implements View {
     private ArrayList<BarPlayer> rectanglePlayers = new ArrayList<>();
     private ArrayList<PlayerChart> players;
+    private String fileName;
     private VBox vBox = new VBox();
     public static final int NUMBER_OF_BARS = 8;
     private String title;
@@ -43,23 +45,18 @@ public class BarRacerBoardStackPane extends StackPane implements View {
 
 
 
-    public BarRacerBoardStackPane() {
-        this.players = this.getPlayers(Paths.get("").toAbsolutePath()+"/files/cities.txt");
-        //this.currentYear = this.game.getFirstYear();
-        //this.currentYear = this.game.getCurrentYear(this.game.getFirstYear());
+    public BarRacerBoardStackPane(String fileName) {
+        this.players = this.getPlayers(Paths.get("").toAbsolutePath()+"/files/"+fileName);
+        this.fileName = fileName;
         this.model = new Model(this, this.game.getFirstYear(), this.game.getLastYear(), 100);
-
-        System.out.println(this.game.getLastYear());
-
         this.setPrefSize(BarPlayer.MAX_VALUE+50, BarPlayer.HEIGTH*NUMBER_OF_BARS+300);
         this.title = this.game.getTitle();
         this.population = this.game.getPopulation();
         this.sources = this.game.getSources();
-        //this.setWindowElments();
         this.usedColors = this.generateColors(this.players);
         this.updatePlayers(this.game.getFirstYear());
         this.currentYear = this.game.getCurrentYear(this.game.getFirstYear());
-        this.model.nextBar();
+        //this.model.nextBar();
     }
 
     private void setWindowElments(){
@@ -142,12 +139,17 @@ public class BarRacerBoardStackPane extends StackPane implements View {
 
     @Override
     public void startGame() {
-
+        this.model.nextBar();
     }
 
     @Override
     public void stopGame() {
+        this.model.getTread().stop();
+    }
 
+    @Override
+    public void createStatics() throws IOException {
+        this.game.createStatics(this.fileName);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package pt.ipbeja.po2.chartracer.model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public interface View {
@@ -8,4 +9,5 @@ public interface View {
     public void removeBars();
     public void startGame();
     public void stopGame();
+    public void createStatics() throws IOException;
 }

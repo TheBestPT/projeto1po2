@@ -17,4 +17,8 @@ public class Cities extends BarRacerBoard {
     }
 
 
+    @Override
+    public void createStatics() {
+
+    }
 }

@@ -5,11 +5,13 @@ import javafx.application.Platform;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class MyFileReader {
 
     public static final String EOL = System.getProperty("line.separator");
+    public static final String[] ALLOWEDFILES = new String[] {"cities.txt", "endgame.txt", "game-of-thrones.txt"};
 
 
     public String read(File file) {
@@ -65,6 +67,13 @@ public class MyFileReader {
             return -1;
         }
         return numberOfLines;
+    }
+
+    public static int verifyFile(File file){
+        for (String allowedfile : MyFileReader.ALLOWEDFILES) {
+            if (allowedfile.equals(file.getName())) return 1;
+        }
+        return -1;
     }
 
 }

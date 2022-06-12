@@ -15,4 +15,9 @@ public class EndGame extends BarRacerBoard {
     public double heigthWindow() {
         return 0;
     }
+
+    @Override
+    public void createStatics() {
+
+    }
 }

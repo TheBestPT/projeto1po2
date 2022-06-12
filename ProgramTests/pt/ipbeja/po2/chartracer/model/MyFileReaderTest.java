@@ -84,8 +84,7 @@ class MyFileReaderTest {
         String pathNewFile = Paths.get("").toAbsolutePath()+"/files/testWrite.txt";
         File file = new File(Paths.get("").toAbsolutePath()+"/files/cities.txt");
         ArrayList<String> outText = fileReader.readLineByLine(file);
-        if (!Files.notExists(Path.of(pathNewFile)))
-            new File(pathNewFile).delete();
+        if (!Files.notExists(Path.of(pathNewFile))) new File(pathNewFile).delete();
 
         PlayersCharts players = new PlayersCharts(file.getAbsolutePath(), file.getName(), outText);
         BufferedWriter writer = new BufferedWriter(new FileWriter(pathNewFile, true));
@@ -140,7 +139,7 @@ class MyFileReaderTest {
     }
 
     @Test
-    void testContentSave() throws FileNotFoundException{
+    void testContentSave() throws IOException {
         MyFileReader fileReader = new MyFileReader();
         File file = new File(Paths.get("").toAbsolutePath()+"/files/game-of-thrones.txt");
         PlayersCharts players;
@@ -149,7 +148,11 @@ class MyFileReaderTest {
             outText = fileReader.readLineByLine(file);
             players = new PlayersCharts(file.getAbsolutePath(), file.getName(), outText);
             //System.out.println("u");
-            players.createStatics();
+            String statics = players.createStatics("test.txt");
+            System.out.println(statics);
         }
     }
+
+
+
 }

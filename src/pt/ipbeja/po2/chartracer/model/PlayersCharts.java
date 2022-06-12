@@ -2,6 +2,11 @@ package pt.ipbeja.po2.chartracer.model;
 
 import javafx.scene.paint.Color;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class PlayersCharts {
@@ -117,12 +122,18 @@ public class PlayersCharts {
                 .toArray().length;
     }
 
-    public void createStatics(){
-        String contentToSave = "";
+    public String createStatics(String fileName) throws IOException {
+        Date date = new Date();
+        String newPath = date.getHours()+"-"+date.getMinutes()+"-"+date.getSeconds()+"-"+fileName;
         int media = this.getPlayerCharts().size()/this.getLastYear();
-        System.out.println(this.getPlayerCharts());
-        //contentToSave += "Number od data sets in file: "+this.getLastYear()+"\nFirst date: "+this.getCurrentYear(this.getFirstYear())+"\nLast date: "+this.getCurrentYear(this.getLastYear())+"\nAvarage number of lines in each data set: "+media+"\nNumber of columns in each data set: "+this.allConentList.get(5).split(",").length+"\nMaximum value considering all data sets: "+this.playerCharts.get(0).getNumber()+"\nMinimum value considering all data sets: "+this.playerCharts.get(this.playerCharts.size() - 1).getNumber();
-        System.out.println(contentToSave);
+        List<String> contentToSave = new ArrayList<>();
+        contentToSave.add("Number od data sets in file: "+this.getLastYear()+"\nFirst date: "+this.getCurrentYear(this.getFirstYear())+
+                "\nLast date: "+this.getCurrentYear(this.getLastYear() - 1)+"\nAvarage number of lines in each data set: "+media+"\nNumber of columns in each data set: "
+                +this.allConentList.get(5).split(",").length+"\nMaximum value considering all data sets: "
+                +this.playerCharts.get(0).getNumber()+"\nMinimum value considering all data sets: "
+                +this.playerCharts.get(this.playerCharts.size() - 1).getNumber());
+        Files.write(Path.of(Paths.get("").toAbsolutePath() + "/files/" + newPath), contentToSave);
+        return Paths.get("").toAbsolutePath() + "/files/" + newPath;
     }
 
 

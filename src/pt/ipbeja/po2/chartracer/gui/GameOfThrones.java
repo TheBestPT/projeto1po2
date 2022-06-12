@@ -15,4 +15,9 @@ public class GameOfThrones extends BarRacerBoard{
     public double heigthWindow() {
         return 300;
     }
+
+    @Override
+    public void createStatics() {
+
+    }
 }
