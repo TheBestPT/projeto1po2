@@ -48,8 +48,6 @@ public class MyFileReader {
                 lines.add(scanner.nextLine());
             }
         } catch (FileNotFoundException e) {
-            //System.out.println("Error file not found!");
-            //Platform.exit(); // System.exit(1);
             return null;
         }
         return lines;

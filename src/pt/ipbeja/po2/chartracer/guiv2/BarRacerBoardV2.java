@@ -1,4 +1,4 @@
-package pt.ipbeja.po2.chartracer.gui;
+package pt.ipbeja.po2.chartracer.guiv2;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BarRacerBoardStackPane extends StackPane implements View {
+public class BarRacerBoardV2 extends StackPane implements View {
     private ArrayList<BarPlayer> rectanglePlayers = new ArrayList<>();
     private ArrayList<PlayerChart> players;
     private String fileName;
@@ -44,11 +44,13 @@ public class BarRacerBoardStackPane extends StackPane implements View {
 
 
 
-    public BarRacerBoardStackPane(String fileName, boolean generateStatics) {
+    public BarRacerBoardV2(String fileName, boolean generateStatics) {
         this.players = this.getPlayers(Paths.get("").toAbsolutePath()+"/files/"+fileName);
         this.fileName = fileName;
         this.model = new Model(this, this.game.getFirstYear(), this.game.getLastYear(), 100, generateStatics);
-        this.setPrefSize(BarPlayer.MAX_VALUE+50, BarPlayer.HEIGTH*NUMBER_OF_BARS+300);
+        this.setPrefSize(BarPlayer.MAX_VALUE+100, BarPlayer.HEIGTH*NUMBER_OF_BARS+300);
+        this.setWidth(BarPlayer.MAX_VALUE+100);
+        this.setHeight(BarPlayer.HEIGTH*NUMBER_OF_BARS+300);
         this.title = this.game.getTitle();
         this.population = this.game.getPopulation();
         this.sources = this.game.getSources();
@@ -83,7 +85,7 @@ public class BarRacerBoardStackPane extends StackPane implements View {
         //System.out.println("createBars");
         this.setWindowElments();
         ArrayList<BarPlayer> barPlayers = new ArrayList<>();
-        for (int i = 0; i < (NUMBER_OF_BARS > players.size() ? players.size() : NUMBER_OF_BARS); i++){
+        for (int i = 0; i < (Math.min(NUMBER_OF_BARS, players.size())); i++){//NUMBER_OF_BARS > players.size() ? players.size() : NUMBER_OF_BARS
             barPlayers.add(new BarPlayer(this.calculateWidth(players.get(i).getNumber(), players.get(0).getNumber()), String.valueOf(players.get(i).getNumber()), players.get(i).getPlayerName(), this.usedColors.get(players.get(i).getPlayerName())));
 
             this.vBox.getChildren().add(barPlayers.get(i));
@@ -118,7 +120,6 @@ public class BarRacerBoardStackPane extends StackPane implements View {
 
         if (bigger == currentWidth) return BarPlayer.MAX_VALUE;
 
-        //System.out.println((currentWidth * BarPlayer.MAX_VALUE) / bigger);
         return (currentWidth * BarPlayer.MAX_VALUE) / bigger;
     }
 
@@ -150,8 +151,6 @@ public class BarRacerBoardStackPane extends StackPane implements View {
     public String createStatics() throws IOException {
         return this.game.createStatics(this.fileName);
     }
-
-
 
     @Override
     public void updatePlayers(int year) {

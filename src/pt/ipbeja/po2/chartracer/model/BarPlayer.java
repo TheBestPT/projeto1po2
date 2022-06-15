@@ -45,10 +45,9 @@ public class BarPlayer extends StackPane {
         hBox.getChildren().addAll(rectangle, numberRace);
         this.setPadding(new Insets(2, 2, 2, 2));
         this.getChildren().addAll(hBox, playerName);
-
     }
 
-    public Color getColorSeted() {
+    /*public Color getColorSeted() {
         return colorSeted;
     }
 
@@ -67,7 +66,7 @@ public class BarPlayer extends StackPane {
         }while (this.lastColor == color);
         this.lastColor = color;
         return colorsList[color];
-    }
+    }*/
 
     public String getNumberRace() {
         return numberRace;

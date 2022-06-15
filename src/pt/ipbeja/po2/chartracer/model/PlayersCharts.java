@@ -27,40 +27,6 @@ public class PlayersCharts {
         this.fileName = fileName;
         this.playerCharts = this.saveChareters(playerCharts);
         this.setEndYear();
-        //System.out.println(this.allYears.get(518));
-        //this.getManySections(playerCharts);
-        //this.sectionLength = Integer.parseInt(playerCharts.get(4));
-    }
-
-    /*public int getFirstYear(){
-        return Integer.parseInt(this.allConentList.get(5).split(",")[0]);
-    }*/
-    public int getFirstYear(){
-        //return Integer.parseInt(this.allConentList.get(5).split(",")[0]);
-        return 0;
-    }
-
-    public int getLastYear(){
-        return this.endYear;
-        //return Integer.parseInt(this.allConentList.get(this.allConentList.size() - 1).split(",")[0]);
-    }
-
-    public void setEndYear(){
-        /*int counter = 0;
-        for (int i = 0; i < this.allConentList.size(); i++){
-            if(i < 4) continue;
-            if(this.allConentList.get(i).split(",").length <= 1 && !this.allConentList.get(i).isBlank())
-                ++counter;
-        }
-        //System.out.println(counter);
-        --counter;
-        this.endYear = counter;*/
-        this.endYear = this.allYears.size();
-    }
-
-    public String getYear(int year){
-        //System.out.println(this.allYears.size());
-        return this.allYears.get(year);
     }
 
     public int howManySections(){
@@ -84,7 +50,6 @@ public class PlayersCharts {
         String currentYear = "";
         for (int i = 4; i < allContent.size(); i++){
             String[] splitedContent = allContent.get(i).split(",");
-            //if(allContent.get(i) != "\n" && splitedContent.length > 1)
             if(!allContent.get(i).isBlank() && splitedContent.length > 1){
                 playerChartArrayList.add(new PlayerChart(splitedContent[0], splitedContent[1], Integer.parseInt(splitedContent[3])));
                 if (!currentYear.equals(splitedContent[0])){
@@ -113,23 +78,12 @@ public class PlayersCharts {
         return playerChartArrayList;
     }
 
-    public int playerNameSize(String year) {
-        return this.getPlayerCharts().stream()
-                .filter((item) -> item.getDate().equals(year))
-                .toArray().length;
-    }
-
     public String createStatics(String fileName) throws IOException {
         Date date = new Date();
-        String newPath = date.getHours()+"-"+date.getMinutes()+"-"+date.getSeconds()+"-"+fileName;
+        String newPath = date.getHours()+"-"+date.getMinutes()+"-"+date.getSeconds()+"-"+date.getTime()+"-"+fileName;
         int media = this.getPlayerCharts().size()/this.getLastYear();
         List<String> contentToSave = new ArrayList<>();
-        //+"\nFirst date: "+this.getCurrentYear(this.getFirstYear()) +
-        //                "\nLast date: "+this.getCurrentYear(this.getLastYear() - 1)+"\nAvarage number of lines in each data set: "+media+"\nNumber of columns in each data set: "
-        //                +this.allConentList.get(5).split(",").length+"\nMaximum value considering all data sets: "
-        //                +this.playerCharts.get(0).getNumber()+"\nMinimum value considering all data sets: "
-        //                +this.playerCharts.get(this.playerCharts.size() - 1).getNumber()
-        contentToSave.add("Number od data sets in file: "+this.getLastYear());
+        contentToSave.add("Number of data sets in file: "+this.getLastYear());
         contentToSave.add("First date: "+this.getYear(this.getFirstYear()));
         contentToSave.add("Last date: "+this.getYear(this.getLastYear() - 1));
         contentToSave.add("Avarage number of lines in each data set: "+media);
@@ -139,9 +93,6 @@ public class PlayersCharts {
         Files.write(Path.of(Paths.get("").toAbsolutePath() + "/files/" + newPath), contentToSave);
         return Paths.get("").toAbsolutePath() + "/files/" + newPath;
     }
-
-
-
 
     public int getNumberOfLines() {
         return numberOfLines;
@@ -158,8 +109,6 @@ public class PlayersCharts {
     public void setContent(String content) {
         this.content = content;
     }
-
-
 
     public String getPath() {
         return path;
@@ -191,5 +140,21 @@ public class PlayersCharts {
 
     public ArrayList<String> getAllContentList() {
         return allContentList;
+    }
+
+    public int getFirstYear(){
+        return 0;
+    }
+
+    public int getLastYear(){
+        return this.endYear;
+    }
+
+    public void setEndYear(){
+        this.endYear = this.allYears.size();
+    }
+
+    public String getYear(int year){
+        return this.allYears.get(year);
     }
 }

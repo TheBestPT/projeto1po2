@@ -1,4 +1,4 @@
-package pt.ipbeja.po2.chartracer.gui;
+package pt.ipbeja.po2.chartracer.guiv2;
 
 
 import javafx.application.Application;
@@ -21,12 +21,12 @@ import pt.ipbeja.po2.chartracer.model.View;
 import java.io.File;
 import java.nio.file.Paths;
 
-public class MainAppBars extends Application {
+public class MainAppBarsV2 extends Application {
     private VBox mainVBox;
     public static double BUTTONWIDTH = 200;
     public static final Font TITLEFONTMAINAPP = Font.font("Verdana", FontWeight.EXTRA_BOLD, 40);
     private Button chooseFileButton;
-    private BarRacerBoard barRacerBoard;
+    private BarRacerBoardV2 barRacerBoard;
     private Text gameTitle;
     private boolean isPlaying = false;
     private MenuBar optionMenu;
@@ -42,7 +42,7 @@ public class MainAppBars extends Application {
         this.createMain();
         Scene scene = new Scene(this.mainVBox);
         this.principalStage.setMinWidth(BarPlayer.MAX_VALUE+50);
-        this.principalStage.setMinHeight(BarPlayer.HEIGTH* BarRacerBoard.NUMBER_OF_BARS+200);
+        this.principalStage.setMinHeight(BarPlayer.HEIGTH* BarRacerBoardV2.NUMBER_OF_BARS+200);
         this.principalStage.setScene(scene);
         this.principalStage.show();
     }
@@ -50,7 +50,7 @@ public class MainAppBars extends Application {
     public void createScene(){
         Scene scene = new Scene(this.mainVBox);
         this.principalStage.setWidth(BarPlayer.MAX_VALUE+50);
-        this.principalStage.setHeight(BarPlayer.HEIGTH* BarRacerBoard.NUMBER_OF_BARS+200);
+        this.principalStage.setHeight(BarPlayer.HEIGTH* BarRacerBoardV2.NUMBER_OF_BARS+200);
         this.principalStage.setScene(scene);
     }
 
@@ -154,7 +154,7 @@ public class MainAppBars extends Application {
     }
 
     public void createGame(String fileName)  {
-        this.barRacerBoard = new BarRacerBoard(fileName, this.staticsCheck.isSelected());
+        this.barRacerBoard = new BarRacerBoardV2(fileName, this.staticsCheck.isSelected());
         this.fileName = fileName;
         this.mainVBox.getChildren().add(this.barRacerBoard);
         this.startGame(this.barRacerBoard);
