@@ -2,12 +2,17 @@ package pt.ipbeja.po2.chartracer.model;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+
+/**
+ * Escola Superior de Tecnologia e Gestão do
+ * Instituto PolitÈcnico de Beja
+ * @author José Francisco - 22893, Patrícia Berenguer - 22893
+ */
 
 public class BarPlayer extends StackPane {
     private String numberRace;

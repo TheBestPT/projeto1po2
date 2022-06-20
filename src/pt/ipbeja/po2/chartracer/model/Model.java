@@ -4,6 +4,12 @@ import javafx.application.Platform;
 
 import java.io.IOException;
 
+/**
+ * Escola Superior de Tecnologia e Gestão do
+ * Instituto PolitÈcnico de Beja
+ * @author José Francisco - 22893, Patrícia Berenguer - 22893
+ */
+
 public class Model {
     private View view;
     private int firstYear;

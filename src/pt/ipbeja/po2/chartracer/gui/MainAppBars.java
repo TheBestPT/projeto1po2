@@ -21,6 +21,12 @@ import pt.ipbeja.po2.chartracer.model.View;
 import java.io.File;
 import java.nio.file.Paths;
 
+/**
+ * Escola Superior de Tecnologia e Gestão do
+ * Instituto PolitÈcnico de Beja
+ * @author José Francisco - 22893, Patrícia Berenguer - 22893
+ */
+
 public class MainAppBars extends Application {
     private VBox mainVBox;
     public static double BUTTONWIDTH = 200;
@@ -81,9 +87,7 @@ public class MainAppBars extends Application {
         this.chooseFileButton.setOnAction(new ChooseFileHandler(this.principalStage, this.mainVBox));
     }
 
-    public void setPlaying() {
-        this.isPlaying = !this.isPlaying;
-    }
+
 
     public class StaticsHanlder implements EventHandler<ActionEvent>{
 
@@ -151,6 +155,10 @@ public class MainAppBars extends Application {
             setPlaying();
             createGame(file.getName());
         }
+    }
+
+    public void setPlaying() {
+        this.isPlaying = !this.isPlaying;
     }
 
     public void createGame(String fileName)  {

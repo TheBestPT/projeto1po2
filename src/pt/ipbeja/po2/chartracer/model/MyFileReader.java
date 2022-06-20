@@ -8,6 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Escola Superior de Tecnologia e Gestão do
+ * Instituto PolitÈcnico de Beja
+ * @author José Francisco - 22893, Patrícia Berenguer - 22893
+ */
+
 public class MyFileReader {
 
     public static final String EOL = System.getProperty("line.separator");

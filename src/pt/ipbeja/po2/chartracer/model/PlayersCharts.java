@@ -6,6 +6,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
+/**
+ * Escola Superior de Tecnologia e Gestão do
+ * Instituto PolitÈcnico de Beja
+ * @author José Francisco - 22893, Patrícia Berenguer - 22893
+ */
+
 public class PlayersCharts {
     private String path;
     public int numberOfLines;
