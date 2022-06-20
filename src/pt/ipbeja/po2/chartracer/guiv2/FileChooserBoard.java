@@ -80,7 +80,7 @@ public class FileChooserBoard extends VBox implements ViewFileChooser {
     }
 
     /**
-     * (Interface ViewFileChooser Method) Set statics.
+     * (Interface ViewFileChooser Method) Set if user wants statics file or not.
      * @param flag
      */
     @Override
@@ -89,18 +89,26 @@ public class FileChooserBoard extends VBox implements ViewFileChooser {
     }
 
     /**
-     * (Interface ViewFileChooser Method) 
+     * (Interface ViewFileChooser Method) Set if the game is running or not.
      */
     @Override
     public void setPlaying() {
         this.isPlaying = !this.isPlaying;
     }
 
+    /**
+     * (Interface ViewFileChooser Method) Get option menu to hidden in game.
+     * @return
+     */
     @Override
     public MenuBar getOptionMenu() {
         return this.optionMenu;
     }
 
+    /**
+     * Create game. Instance BarRacerBoard and add that to this class (vBox). And start the game
+     * @param fileName
+     */
     @Override
     public void createGame(String fileName)  {
         this.barRacerBoard = new BarRacerBoardV2(fileName, this.staticsCheck.isSelected());
@@ -109,23 +117,40 @@ public class FileChooserBoard extends VBox implements ViewFileChooser {
         this.startGame(this.barRacerBoard);
     }
 
+    /**
+     * Clear window to allocate bars.
+     */
     @Override
     public void clearWindow(){
         this.getChildren().clear();
     }
 
+    /**
+     * Start the game and hide data menu.
+     * @param view - View to call startGame
+     */
     @Override
     public void startGame(View view) {
         this.dataMenu.setVisible(false);
         view.startGame();
     }
 
+
+    /**
+     * Stop the game and show data menu.
+     * @param view
+     */
     @Override
     public void stopGame(View view){
         this.setPlaying();
         this.dataMenu.setVisible(true);
         view.stopGame();
     }
+
+    /**
+     * Get if game is running or not.
+     * @return boolean
+     */
     @Override
     public boolean isPlaying() {
         return isPlaying;

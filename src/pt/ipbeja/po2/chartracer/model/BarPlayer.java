@@ -32,6 +32,13 @@ public class BarPlayer extends StackPane {
         this.createBar(null);
     }
 
+    /**
+     *
+     * @param width
+     * @param numberRace
+     * @param playerName
+     * @param color
+     */
     public BarPlayer(double width, String numberRace, String playerName, Color color){
         this.width = width;
         this.numberRace = numberRace;
@@ -73,6 +80,10 @@ public class BarPlayer extends StackPane {
         return colorsList[color];
     }*/
 
+    /**
+     *
+     * @return
+     */
     public String getNumberRace() {
         return numberRace;
     }
