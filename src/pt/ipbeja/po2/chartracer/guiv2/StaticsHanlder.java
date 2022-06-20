@@ -17,10 +17,20 @@ import java.nio.file.Paths;
 public class StaticsHanlder implements EventHandler<ActionEvent> {
     private ViewFileChooser view;
 
+    /**
+     * (Constructor class) Bring view to use the methods on FileChooserBoard to choose if the user want statics file
+     * or not.
+     * @param view
+     */
     public StaticsHanlder(ViewFileChooser view) {
         this.view = view;
     }
 
+    /**
+     * (Interface EventHandler<ActionEvent> Method) When the button is pressed a window will open and show where the file
+     * will be saved.
+     * @param actionEvent
+     */
     @Override
     public void handle(ActionEvent actionEvent)  {
         CheckMenuItem check = (CheckMenuItem) actionEvent.getSource();
@@ -30,11 +40,8 @@ public class StaticsHanlder implements EventHandler<ActionEvent> {
             info.setHeaderText("File will be generated after game close in: "+ Paths.get("").toAbsolutePath() + "/files/HH-MM-SS-nameOfFile.txt");
             this.view.setStatics(true);
             info.showAndWait();
-        }else{
-            info.setTitle("File will not be genereted");
-            info.setHeaderText("No file will be generate");
-            this.view.setStatics(false);
-            info.showAndWait();
+            return;
         }
+        this.view.setStatics(false);
     }
 }

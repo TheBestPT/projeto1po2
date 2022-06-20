@@ -18,8 +18,8 @@ import pt.ipbeja.po2.chartracer.model.ViewFileChooser;
  */
 
 public class FileChooserBoard extends VBox implements ViewFileChooser {
-    public static double BUTTONWIDTH = 200;
     public static final Font TITLEFONTMAINAPP = Font.font("Verdana", FontWeight.EXTRA_BOLD, 40);
+    public static double BUTTONWIDTH = 200;
     private Button chooseFileButton;
     private BarRacerBoardV2 barRacerBoard;
     private Text gameTitle;
@@ -30,8 +30,11 @@ public class FileChooserBoard extends VBox implements ViewFileChooser {
     private Stage principalStage;
     private String fileName;
     private boolean staticsSelected = false;
-    private View view;
 
+    /**
+     * (Constuctor class) Call createMain(), for create the first window in the App.
+     * @param principalStage
+     */
     public FileChooserBoard(Stage principalStage){
         //this.view = view;
         this.principalStage = principalStage;
@@ -39,8 +42,10 @@ public class FileChooserBoard extends VBox implements ViewFileChooser {
     }
 
 
+    /**
+     * Create buttons, texts and menus and attach them to the main vBox
+     */
     public void createMain(){
-        /* Create buttons and titles*/
         this.chooseFileButton = new Button("Choose file");
         this.chooseFileButton.setPrefWidth(BUTTONWIDTH);
         this.gameTitle = new Text("Choose a file: ");
@@ -65,16 +70,27 @@ public class FileChooserBoard extends VBox implements ViewFileChooser {
         this.chooseFileButton.setOnAction(new ChooseFileHandler(this.principalStage, this, this));
     }
 
+    /**
+     * (Interface ViewFileChooser Method) Get View
+     * @return - View
+     */
     @Override
     public View getViewBars() {
         return this.barRacerBoard;
     }
 
+    /**
+     * (Interface ViewFileChooser Method) Set statics.
+     * @param flag
+     */
     @Override
     public void setStatics(boolean flag) {
         this.staticsSelected = flag;
     }
 
+    /**
+     * (Interface ViewFileChooser Method) 
+     */
     @Override
     public void setPlaying() {
         this.isPlaying = !this.isPlaying;

@@ -15,6 +15,10 @@ import pt.ipbeja.po2.chartracer.model.BarPlayer;
 
 public class MainAppBarsV2 extends Application {
 
+    /**
+     * This is the place where all beggins. A Scene will be created with FileChooserBoard.
+     * @param stage
+     */
     @Override
     public void start(Stage stage) {
         Scene scene = new Scene(new FileChooserBoard(stage));

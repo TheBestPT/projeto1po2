@@ -23,12 +23,23 @@ public class ChooseFileHandler implements EventHandler<ActionEvent> {
     private VBox vBox;
     private ViewFileChooser view;
 
+    /**
+     * (Constructor class) Bring stage, vBox and view for choose file to open a choose file window.
+     * @param stage
+     * @param vBox
+     * @param view
+     */
     public ChooseFileHandler(Stage stage, VBox vBox, ViewFileChooser view) {
         this.stage = stage;
         this.vBox = vBox;
         this.view = view;
     }
 
+    /**
+     * (Interface EventHandler<ActionEvent> Method) When the button is pressed a window to choose the file will open,
+     * after the file been chosen the file will be verified, and if this was correct the game will start
+     * @param actionEvent
+     */
     @Override
     public void handle(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
