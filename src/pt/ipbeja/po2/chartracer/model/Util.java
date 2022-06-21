@@ -6,6 +6,12 @@ import javafx.scene.text.FontWeight;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Escola Superior de Tecnologia e Gestão do
+ * Instituto Politécnico de Beja
+ * @author José Francisco - 22896, Patrícia Berenguer - 22893
+ */
+
 public class Util {
     public static final Font TITLEFONTMAINAPP = Font.font("Verdana", FontWeight.EXTRA_BOLD, 40);
 

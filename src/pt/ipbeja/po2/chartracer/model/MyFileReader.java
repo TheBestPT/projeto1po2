@@ -8,8 +8,8 @@ import java.util.*;
 
 /**
  * Escola Superior de Tecnologia e Gestão do
- * Instituto PolitÈcnico de Beja
- * @author José Francisco - 22893, Patrícia Berenguer - 22893
+ * Instituto Politécnico de Beja
+ * @author José Francisco - 22896, Patrícia Berenguer - 22893
  */
 
 public class MyFileReader {
