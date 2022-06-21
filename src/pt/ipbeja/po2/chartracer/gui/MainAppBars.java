@@ -14,7 +14,7 @@ import pt.ipbeja.po2.chartracer.model.Util;
 public class MainAppBars extends Application {
 
     /**
-     * This is the place where all beggins. A Scene will be created with FileChooserBoard.
+     * This is the place where all begins. A Scene will be created with FileChooserBoard.
      * @param stage
      */
     @Override
