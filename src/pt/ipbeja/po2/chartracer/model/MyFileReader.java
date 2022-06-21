@@ -4,9 +4,7 @@ import javafx.application.Platform;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Escola Superior de Tecnologia e Gestão do
@@ -17,7 +15,11 @@ import java.util.Scanner;
 public class MyFileReader {
     public static final String EOL = System.getProperty("line.separator");
     public static final String[] ALLOWEDFILES = new String[] {"cities.txt", "endgame.txt", "game-of-thrones.txt", "brands.txt", "countries.txt", "cities-usa.txt", "movies.txt", "baby-names.txt", "football.txt"};
+    public static final Map<String, Integer> speedOnGame = new HashMap<>();
 
+    public MyFileReader(){
+
+    }
 
     /**
      * Method to read the file and return a String with the content

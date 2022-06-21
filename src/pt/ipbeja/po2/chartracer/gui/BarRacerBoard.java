@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,11 +25,11 @@ import java.util.Map;
  */
 
 public class BarRacerBoard extends StackPane implements View {
-    //private static final int NUMBEROFBARS = 10;
     private static final Font TITLEFONT = Font.font("Verdana", FontWeight.EXTRA_BOLD, 15);
     private static final Font YEARFONT = Font.font("Verdana", FontWeight.EXTRA_BOLD, 80);
     private static final Font SOURCEFONT = Font.font("Verdana", FontWeight.EXTRA_BOLD, 12);
     public static final int NUMBER_OF_BARS = 8;
+    private final String[] exceptionTimes = new String[]{"end-game.txt", "game-of-thrones.txt"};
     private ArrayList<BarPlayer> rectanglePlayers = new ArrayList<>();
     private ArrayList<PlayerChart> players;
     private String fileName;
@@ -55,10 +56,10 @@ public class BarRacerBoard extends StackPane implements View {
     public BarRacerBoard(String fileName, boolean generateStatics) {
         this.players = this.getPlayers(Paths.get("").toAbsolutePath()+"/files/"+fileName);
         this.fileName = fileName;
-        this.model = new Model(this, this.game.getFirstYear(), this.game.getLastYear(), 100, generateStatics);
-        this.setPrefSize(BarPlayer.MAX_VALUE+100, BarPlayer.HEIGTH*NUMBER_OF_BARS+300);
-        this.setWidth(BarPlayer.MAX_VALUE+100);
-        this.setHeight(BarPlayer.HEIGTH*NUMBER_OF_BARS+300);
+        this.model = new Model(this, this.game.getFirstYear(), this.game.getLastYear(), (Arrays.binarySearch(this.exceptionTimes, fileName) != -1 ? 50 : 100), generateStatics);
+        this.setPrefSize(BarPlayer.MAX_VALUE+200, BarPlayer.HEIGTH * NUMBER_OF_BARS + 300);
+        this.setWidth(BarPlayer.MAX_VALUE+200);
+        this.setHeight(BarPlayer.HEIGTH * NUMBER_OF_BARS + 300);
         this.title = this.game.getTitle();
         this.population = this.game.getPopulation();
         this.sources = this.game.getSources();
@@ -113,7 +114,6 @@ public class BarRacerBoard extends StackPane implements View {
         for (int i = 0; i < players.size(); i++)
             if (colorMap.get(players.get(i).getPlayerName()) == null)
                 colorMap.put(players.get(i).getPlayerName(), this.generateColor());
-
         return colorMap;
     }
 
