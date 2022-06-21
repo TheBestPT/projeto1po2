@@ -1,7 +1,0 @@
-Number of data sets in file: 3401
-First date: 00:00:00
-Last date: 02:50:00
-Avarage number of lines in each data set: 57
-Number of columns in each data set: 5
-Maximum value considering all data sets: 1997
-Minimum value considering all data sets: 0
