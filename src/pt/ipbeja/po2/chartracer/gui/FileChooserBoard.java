@@ -20,7 +20,7 @@ import pt.ipbeja.po2.chartracer.model.ViewFileChooser;
 
 public class FileChooserBoard extends VBox implements ViewFileChooser {
     public static double BUTTONWIDTH = 200;
-    private Button chooseFileButton;
+    private Button chooseFileButton, startButton;
     private BarRacerBoard barRacerBoard;
     private Text gameTitle;
     private boolean isPlaying = false;
@@ -47,7 +47,9 @@ public class FileChooserBoard extends VBox implements ViewFileChooser {
      */
     public void createMain(){
         this.chooseFileButton = new Button("Choose file");
+        this.startButton = new Button("Start");
         this.chooseFileButton.setPrefWidth(BUTTONWIDTH);
+        this.startButton.setPrefWidth(BUTTONWIDTH);
         this.gameTitle = new Text("Bar Chart Racer\n Choose a file: ");
         this.gameTitle.setFont(Util.TITLEFONTMAINAPP);
         Menu fileMenu = new Menu("Options");
@@ -55,6 +57,7 @@ public class FileChooserBoard extends VBox implements ViewFileChooser {
         fileMenu.getItems().add(exit);
         this.dataMenu = new Menu("Data");
         this.staticsCheck = new CheckMenuItem("Statics");
+        this.startButton.setOnAction(new PlayButtonHandler(this, this));
         this.dataMenu.getItems().add(this.staticsCheck);
         this.staticsCheck.setSelected(this.staticsSelected);
         this.staticsCheck.setOnAction(new StaticsHanlder(this));
@@ -65,7 +68,7 @@ public class FileChooserBoard extends VBox implements ViewFileChooser {
         VBox vBoxChoose = new VBox();
         vBoxChoose.setAlignment(Pos.CENTER);
         vBoxChoose.setPadding(new Insets(20));
-        vBoxChoose.getChildren().addAll(this.gameTitle, this.chooseFileButton);
+        vBoxChoose.getChildren().addAll(this.gameTitle, this.chooseFileButton, this.startButton);
         this.getChildren().addAll(this.optionMenu,  vBoxChoose);
         this.chooseFileButton.setOnAction(new ChooseFileHandler(this.principalStage, this, this));
     }
@@ -154,6 +157,24 @@ public class FileChooserBoard extends VBox implements ViewFileChooser {
     @Override
     public boolean isPlaying() {
         return this.isPlaying;
+    }
+
+    /**
+     * (Interface ViewFileChooser Method) Set file name.
+     * @param fileName - file name
+     */
+    @Override
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    /**
+     * (Interface ViewFileChooser Method) Getter to get file name
+     * @return string with filename
+     */
+    @Override
+    public String getFileName() {
+        return this.fileName;
     }
 
 

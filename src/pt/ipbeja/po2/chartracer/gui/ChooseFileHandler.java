@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -43,6 +44,7 @@ public class ChooseFileHandler implements EventHandler<ActionEvent> {
     @Override
     public void handle(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
+        Button button = (Button) actionEvent.getSource();
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error no  file added.");
         alert.setHeaderText("You have to choose a file!!");
@@ -59,10 +61,12 @@ public class ChooseFileHandler implements EventHandler<ActionEvent> {
             alert.showAndWait();
             return;
         }
-        this.view.clearWindow();
+        this.view.setFileName(file.getName());
+        button.setText(file.getName());
+        /*this.view.clearWindow();
         this.vBox.getChildren().add(this.view.getOptionMenu());
         this.vBox.setAlignment(Pos.TOP_LEFT);
         this.view.setPlaying();
-        this.view.createGame(file.getName());
+        this.view.createGame(file.getName());*/
     }
 }

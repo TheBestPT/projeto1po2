@@ -63,4 +63,16 @@ public interface ViewFileChooser {
      * @return
      */
     MenuBar getOptionMenu();
+
+    /**
+     * Set file name.
+     * @param fileName - file name
+     */
+    void setFileName(String fileName);
+
+    /**
+     * Getter to get file name
+     * @return string with filename
+     */
+    String getFileName();
 }
