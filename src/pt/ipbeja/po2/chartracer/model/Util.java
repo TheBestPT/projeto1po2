@@ -31,6 +31,10 @@ public class Util {
 
     public static final double WIDTH_WINDOW = Util.MAX_VALUE_WIDTH +200;
 
+    /**
+     * Simple method to return a map with all speeds to thread depending on file read
+     * @return - map with speeds
+     */
     public static Map<String, Integer> getSpeeds(){
         Map<String, Integer> speeds = new HashMap<>();
         speeds.put("baby-names.txt", 50);
