@@ -63,10 +63,5 @@ public class ChooseFileHandler implements EventHandler<ActionEvent> {
         }
         this.view.setFileName(file.getName());
         button.setText(file.getName());
-        /*this.view.clearWindow();
-        this.vBox.getChildren().add(this.view.getOptionMenu());
-        this.vBox.setAlignment(Pos.TOP_LEFT);
-        this.view.setPlaying();
-        this.view.createGame(file.getName());*/
     }
 }
