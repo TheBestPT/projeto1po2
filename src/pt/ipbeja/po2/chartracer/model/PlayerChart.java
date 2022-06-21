@@ -28,7 +28,7 @@ public class PlayerChart implements Comparable<PlayerChart> {
      * @return
      */
     public String getYear() {
-        return year;
+        return this.year;
     }
 
     /**
@@ -36,7 +36,7 @@ public class PlayerChart implements Comparable<PlayerChart> {
      * @return - String player name
      */
     public String getPlayerName() {
-        return playerName;
+        return this.playerName;
     }
 
     /**
@@ -44,7 +44,7 @@ public class PlayerChart implements Comparable<PlayerChart> {
      * @return - int number
      */
     public int getNumber() {
-        return number;
+        return this.number;
     }
 
     /**

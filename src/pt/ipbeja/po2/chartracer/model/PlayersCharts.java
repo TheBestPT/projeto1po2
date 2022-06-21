@@ -130,7 +130,7 @@ public class PlayersCharts {
      * @return - String title
      */
     public String getTitle() {
-        return title;
+        return this.title;
     }
 
     /**
@@ -138,7 +138,7 @@ public class PlayersCharts {
      * @return - String population
      */
     public String getPopulation() {
-        return population;
+        return this.population;
     }
 
     /**
@@ -146,7 +146,7 @@ public class PlayersCharts {
      * @return - String sources
      */
     public String getSources() {
-        return sources;
+        return this.sources;
     }
 
     /**
@@ -154,7 +154,7 @@ public class PlayersCharts {
      * @return - ArrayList<PlayerChart> players
      */
     public ArrayList<PlayerChart> getPlayerCharts() {
-        return playerCharts;
+        return this.playerCharts;
     }
 
     /**
@@ -162,7 +162,7 @@ public class PlayersCharts {
      * @return - int length
      */
     public int getSectionLength() {
-        return sectionLength;
+        return this.sectionLength;
     }
 
     /**

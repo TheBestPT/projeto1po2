@@ -31,6 +31,5 @@ public class ExitButtonHandler implements EventHandler<ActionEvent> {
         this.view.stopGame(this.view.getViewBars());
         this.view.clearWindow();
         this.view.createMain();
-        //createScene();
     }
 }

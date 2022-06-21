@@ -5,8 +5,6 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import pt.ipbeja.po2.chartracer.model.*;
 
@@ -25,10 +23,6 @@ import java.util.Map;
  */
 
 public class BarRacerBoard extends StackPane implements View {
-    private static final Font TITLEFONT = Font.font("Verdana", FontWeight.EXTRA_BOLD, 15);
-    private static final Font YEARFONT = Font.font("Verdana", FontWeight.EXTRA_BOLD, 80);
-    private static final Font SOURCEFONT = Font.font("Verdana", FontWeight.EXTRA_BOLD, 12);
-    public static final int NUMBER_OF_BARS = 8;
     private final String[] exceptionTimes = new String[]{"end-game.txt", "game-of-thrones.txt"};
     private ArrayList<BarPlayer> rectanglePlayers = new ArrayList<>();
     private ArrayList<PlayerChart> players;
@@ -57,9 +51,9 @@ public class BarRacerBoard extends StackPane implements View {
         this.players = this.getPlayers(Paths.get("").toAbsolutePath()+"/files/"+fileName);
         this.fileName = fileName;
         this.model = new Model(this, this.game.getFirstYear(), this.game.getLastYear(), (Arrays.binarySearch(this.exceptionTimes, fileName) != -1 ? 50 : 100), generateStatics);
-        this.setPrefSize(BarPlayer.MAX_VALUE+200, BarPlayer.HEIGTH * NUMBER_OF_BARS + 300);
-        this.setWidth(BarPlayer.MAX_VALUE+200);
-        this.setHeight(BarPlayer.HEIGTH * NUMBER_OF_BARS + 300);
+        this.setPrefSize(Util.WIDTH_WINDOW, Util.HEIGTH_WINDOW);
+        /*this.setWidth(Util.WIDTH_WINDOW);
+        this.setHeight(Util.HEIGTH_WINDOW);*/
         this.title = this.game.getTitle();
         this.population = this.game.getPopulation();
         this.sources = this.game.getSources();
@@ -76,14 +70,14 @@ public class BarRacerBoard extends StackPane implements View {
         Text population = new Text(this.population);
         Text year = new Text(this.currentYear);
         Text source = new Text(this.sources);
-        year.setFont(YEARFONT);
+        year.setFont(Util.YEARFONT);
         year.setFill(Color.GRAY);
         source.setFill(Color.GRAY);
         StackPane.setMargin(year, new Insets(2, 2, 2, 2));
         StackPane.setMargin(source, new Insets(2, 2, 2, 2));
         this.setAlignment(Pos.BOTTOM_RIGHT);
         this.getChildren().addAll(year, source);
-        title.setFont(TITLEFONT);
+        title.setFont(Util.TITLEFONT);
         this.vBox.setAlignment(Pos.TOP_CENTER);
         this.vBox.getChildren().addAll(title, population);
     }
@@ -95,7 +89,7 @@ public class BarRacerBoard extends StackPane implements View {
     private void createBars(ArrayList<PlayerChart> players){
         this.setWindowElments();
         ArrayList<BarPlayer> barPlayers = new ArrayList<>();
-        for (int i = 0; i < (Math.min(NUMBER_OF_BARS, players.size())); i++){//NUMBER_OF_BARS > players.size() ? players.size() : NUMBER_OF_BARS
+        for (int i = 0; i < (Math.min(Util.NUMBER_OF_BARS, players.size())); i++){//NUMBER_OF_BARS > players.size() ? players.size() : NUMBER_OF_BARS
             barPlayers.add(new BarPlayer(this.calculateWidth(players.get(i).getNumber(), players.get(0).getNumber()), String.valueOf(players.get(i).getNumber()), players.get(i).getPlayerName(), this.usedColors.get(players.get(i).getPlayerName())));
             this.vBox.getChildren().add(barPlayers.get(i));
         }
@@ -138,11 +132,11 @@ public class BarRacerBoard extends StackPane implements View {
      * @return - width to set
      */
     public double calculateWidth(int currentWidth, int bigger){
-        if (bigger < BarPlayer.MAX_VALUE) return currentWidth;
+        if (bigger < Util.MAX_VALUE_WIDTH) return currentWidth;
 
-        if (bigger == currentWidth) return BarPlayer.MAX_VALUE;
+        if (bigger == currentWidth) return Util.MAX_VALUE_WIDTH;
 
-        return (currentWidth * BarPlayer.MAX_VALUE) / bigger;
+        return (currentWidth * Util.MAX_VALUE_WIDTH) / bigger;
     }
 
     /**

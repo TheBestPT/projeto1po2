@@ -15,8 +15,6 @@ import javafx.scene.text.Text;
  */
 
 public class BarPlayer extends StackPane {
-    public static final double HEIGTH = 40;
-    public static final int MAX_VALUE = 1000;
     private String numberRace;
     private String playerName;
     private double width;
@@ -58,7 +56,7 @@ public class BarPlayer extends StackPane {
      */
     private void createBar(Color color){
         HBox hBox = new HBox();
-        Rectangle rectangle = new Rectangle(this.width, HEIGTH);
+        Rectangle rectangle = new Rectangle(this.width, Util.HEIGTH_BAR);
         Text numberRace = new Text(this.getNumberRace());
         this.setAlignment(Pos.CENTER_LEFT);
         Text playerName = new Text(this.playerName);
@@ -74,7 +72,7 @@ public class BarPlayer extends StackPane {
      * @return
      */
     public String getNumberRace() {
-        return numberRace;
+        return this.numberRace;
     }
 
 }

@@ -8,6 +8,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import pt.ipbeja.po2.chartracer.model.Util;
 import pt.ipbeja.po2.chartracer.model.View;
 import pt.ipbeja.po2.chartracer.model.ViewFileChooser;
 
@@ -18,7 +19,6 @@ import pt.ipbeja.po2.chartracer.model.ViewFileChooser;
  */
 
 public class FileChooserBoard extends VBox implements ViewFileChooser {
-    public static final Font TITLEFONTMAINAPP = Font.font("Verdana", FontWeight.EXTRA_BOLD, 40);
     public static double BUTTONWIDTH = 200;
     private Button chooseFileButton;
     private BarRacerBoard barRacerBoard;
@@ -49,7 +49,7 @@ public class FileChooserBoard extends VBox implements ViewFileChooser {
         this.chooseFileButton = new Button("Choose file");
         this.chooseFileButton.setPrefWidth(BUTTONWIDTH);
         this.gameTitle = new Text("Choose a file: ");
-        this.gameTitle.setFont(TITLEFONTMAINAPP);
+        this.gameTitle.setFont(Util.TITLEFONTMAINAPP);
         Menu fileMenu = new Menu("Options");
         MenuItem exit = new MenuItem("Exit");
         fileMenu.getItems().add(exit);
@@ -153,7 +153,7 @@ public class FileChooserBoard extends VBox implements ViewFileChooser {
      */
     @Override
     public boolean isPlaying() {
-        return isPlaying;
+        return this.isPlaying;
     }
 
 

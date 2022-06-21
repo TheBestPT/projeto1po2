@@ -13,9 +13,6 @@ import java.util.*;
  */
 
 public class MyFileReader {
-    public static final String EOL = System.getProperty("line.separator");
-    public static final String[] ALLOWEDFILES = new String[] {"cities.txt", "endgame.txt", "game-of-thrones.txt", "brands.txt", "countries.txt", "cities-usa.txt", "movies.txt", "baby-names.txt", "football.txt"};
-    public static final Map<String, Integer> speedOnGame = new HashMap<>();
 
     public MyFileReader(){
 
@@ -30,7 +27,7 @@ public class MyFileReader {
         StringBuilder s = new StringBuilder();
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
-                s.append(scanner.nextLine()).append(EOL);
+                s.append(scanner.nextLine()).append(Util.EOL);
             }
         } catch (FileNotFoundException e) {
             System.out.println("Error file not found!");
@@ -64,7 +61,7 @@ public class MyFileReader {
      * @return - int if it's allowed return 1 if not -1
      */
     public static int verifyFile(File file){
-        for (String allowedfile : MyFileReader.ALLOWEDFILES) {
+        for (String allowedfile : Util.ALLOWEDFILES) {
             if (allowedfile.equals(file.getName())) return 1;
         }
         return -1;

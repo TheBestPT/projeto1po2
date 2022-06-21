@@ -1,13 +1,9 @@
 package pt.ipbeja.po2.chartracer.gui;
 
-
-
 import javafx.application.Application;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
-import pt.ipbeja.po2.chartracer.model.BarPlayer;
+import pt.ipbeja.po2.chartracer.model.Util;
 
 /**
  * Escola Superior de Tecnologia e Gestão do
@@ -23,8 +19,8 @@ public class MainAppBars extends Application {
      */
     @Override
     public void start(Stage stage) {
-        stage.setMinWidth(BarPlayer.MAX_VALUE+200);
-        stage.setMinHeight(BarPlayer.HEIGTH * BarRacerBoard.NUMBER_OF_BARS+200);
+        stage.setMinWidth(Util.WIDTH_WINDOW);
+        stage.setMinHeight(Util.HEIGTH_WINDOW);
         stage.setTitle("Bar Chart Racer");
         Scene scene = new Scene(new FileChooserBoard(stage));
         stage.setScene(scene);
