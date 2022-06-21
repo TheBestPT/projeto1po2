@@ -48,7 +48,7 @@ public class FileChooserBoard extends VBox implements ViewFileChooser {
     public void createMain(){
         this.chooseFileButton = new Button("Choose file");
         this.chooseFileButton.setPrefWidth(BUTTONWIDTH);
-        this.gameTitle = new Text("Choose a file: ");
+        this.gameTitle = new Text("Bar Chart Racer\n Choose a file: ");
         this.gameTitle.setFont(Util.TITLEFONTMAINAPP);
         Menu fileMenu = new Menu("Options");
         MenuItem exit = new MenuItem("Exit");

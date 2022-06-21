@@ -38,9 +38,9 @@ public class Util {
     public static Map<String, Integer> getSpeeds(){
         Map<String, Integer> speeds = new HashMap<>();
         speeds.put("baby-names.txt", 50);
-        speeds.put("brands.txt", 50);
-        speeds.put("cities.txt", 50);
-        speeds.put("countries.txt", 50);
+        speeds.put("brands.txt", 100);
+        speeds.put("cities.txt", 70);
+        speeds.put("countries.txt", 70);
         speeds.put("cities-usa.txt", 50);
         speeds.put("endgame.txt", 100);
         speeds.put("game-of-thrones.txt", 100);
