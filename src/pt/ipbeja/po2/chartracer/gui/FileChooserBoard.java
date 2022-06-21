@@ -1,4 +1,4 @@
-package pt.ipbeja.po2.chartracer.guiv2;
+package pt.ipbeja.po2.chartracer.gui;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -21,7 +21,7 @@ public class FileChooserBoard extends VBox implements ViewFileChooser {
     public static final Font TITLEFONTMAINAPP = Font.font("Verdana", FontWeight.EXTRA_BOLD, 40);
     public static double BUTTONWIDTH = 200;
     private Button chooseFileButton;
-    private BarRacerBoardV2 barRacerBoard;
+    private BarRacerBoard barRacerBoard;
     private Text gameTitle;
     private boolean isPlaying = false;
     private MenuBar optionMenu;
@@ -106,19 +106,19 @@ public class FileChooserBoard extends VBox implements ViewFileChooser {
     }
 
     /**
-     * Create game. Instance BarRacerBoard and add that to this class (vBox). And start the game
+     * (Interface ViewFileChooser Method) Create game. Instance BarRacerBoard and add that to this class (vBox). And start the game
      * @param fileName
      */
     @Override
     public void createGame(String fileName)  {
-        this.barRacerBoard = new BarRacerBoardV2(fileName, this.staticsCheck.isSelected());
+        this.barRacerBoard = new BarRacerBoard(fileName, this.staticsCheck.isSelected());
         this.fileName = fileName;
         this.getChildren().add(this.barRacerBoard);
         this.startGame(this.barRacerBoard);
     }
 
     /**
-     * Clear window to allocate bars.
+     * (Interface ViewFileChooser Method) Clear window to allocate bars.
      */
     @Override
     public void clearWindow(){
@@ -126,7 +126,7 @@ public class FileChooserBoard extends VBox implements ViewFileChooser {
     }
 
     /**
-     * Start the game and hide data menu.
+     * (Interface ViewFileChooser Method) Start the game and hide data menu.
      * @param view - View to call startGame
      */
     @Override
@@ -137,7 +137,7 @@ public class FileChooserBoard extends VBox implements ViewFileChooser {
 
 
     /**
-     * Stop the game and show data menu.
+     * (Interface ViewFileChooser Method) Stop the game and show data menu.
      * @param view
      */
     @Override
@@ -148,7 +148,7 @@ public class FileChooserBoard extends VBox implements ViewFileChooser {
     }
 
     /**
-     * Get if game is running or not.
+     * (Interface ViewFileChooser Method) Get if game is running or not.
      * @return boolean
      */
     @Override
