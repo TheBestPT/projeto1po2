@@ -50,10 +50,10 @@ public class BarRacerBoard extends StackPane implements View {
     public BarRacerBoard(String fileName, boolean generateStatics) {
         this.players = this.getPlayers(Paths.get("").toAbsolutePath()+"/files/"+fileName);
         this.fileName = fileName;
-        this.model = new Model(this, this.game.getFirstYear(), this.game.getLastYear(), (Arrays.binarySearch(this.exceptionTimes, fileName) != -1 ? 50 : 100), generateStatics);
+        this.model = new Model(this, this.game.getFirstYear(), this.game.getLastYear(), Util.getSpeeds().get(fileName), generateStatics);
         this.setPrefSize(Util.WIDTH_WINDOW, Util.HEIGTH_WINDOW);
-        /*this.setWidth(Util.WIDTH_WINDOW);
-        this.setHeight(Util.HEIGTH_WINDOW);*/
+        this.setWidth(Util.WIDTH_WINDOW);
+        this.setHeight(Util.HEIGTH_WINDOW);
         this.title = this.game.getTitle();
         this.population = this.game.getPopulation();
         this.sources = this.game.getSources();

@@ -120,12 +120,9 @@ class MyFileReaderTest {
         ArrayList<String> outText = new ArrayList<>();
         if (file != null){
             outText = fileReader.readLineByLine(file);
-
-            //assertEquals(outText, "");
             players = new PlayersCharts(file.getAbsolutePath(), file.getName(), outText);
             System.out.println(players.getPlayerCharts().get(0).getNumber());
         }
-        //System.out.println(outText);
     }
 
 

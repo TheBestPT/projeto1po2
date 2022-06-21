@@ -30,4 +30,18 @@ public class Util {
     public static final double HEIGTH_WINDOW = Util.HEIGTH_BAR * Util.NUMBER_OF_BARS+220;
 
     public static final double WIDTH_WINDOW = Util.MAX_VALUE_WIDTH +200;
+
+    public static Map<String, Integer> getSpeeds(){
+        Map<String, Integer> speeds = new HashMap<>();
+        speeds.put("baby-names.txt", 50);
+        speeds.put("brands.txt", 50);
+        speeds.put("cities.txt", 50);
+        speeds.put("countries.txt", 50);
+        speeds.put("cities-usa.txt", 50);
+        speeds.put("endgame.txt", 100);
+        speeds.put("game-of-thrones.txt", 100);
+        speeds.put("movies.txt", 150);
+        speeds.put("football.txt", 120);
+        return speeds;
+    }
 }
