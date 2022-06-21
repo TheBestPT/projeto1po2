@@ -8,16 +8,16 @@ import java.util.*;
 
 /**
  * Escola Superior de Tecnologia e Gestão do
- * Instituto PolitÈcnico de Beja
+ * Instituto Politécnico de Beja
  * @author José Francisco - 22893, Patrícia Berenguer - 22893
  */
 
 public class PlayersCharts {
     private String path;
-    public int numberOfLines;
+    private int numberOfLines;
     private String fileName;
-    public String content;
-    public ArrayList<PlayerChart> playerCharts;
+    private String content;
+    private ArrayList<PlayerChart> playerCharts;
     private ArrayList<String> allContentList;
     private String title;
     private String population;
@@ -27,27 +27,37 @@ public class PlayersCharts {
     private List<String> allYears = new ArrayList<>();
 
 
+    /**
+     * (Constructor class) This class will have all player charts and will save on class for manipulation.
+     * @param path - Path of file read with the players.
+     * @param fileName - Only the name of the file.
+     * @param playerCharts - All players read.
+     */
     public PlayersCharts(String path, String fileName, ArrayList<String> playerCharts) {
         this.path = path;
         this.numberOfLines = numberOfLines;
         this.fileName = fileName;
-        this.playerCharts = this.saveChareters(playerCharts);
+        this.playerCharts = this.saveCharacters(playerCharts);
         this.setEndYear();
     }
 
-    public int howManySections(){
-        int counter = 0;
-        for (int i = 0; i < this.allContentList.size(); i++){
-            if(i < 3) continue;
-            if(this.allContentList.get(i).split(",").length <= 1 && !this.allContentList.get(i).isBlank())
-                ++counter;
-        }
-        --counter;
-        return counter;
+    /**
+     * (Constructor class) Other constructor used in MyFileReaderTest.
+     * @param path - Path of file read with the players.
+     * @param fileName - Only the name of the file.
+     */
+    public PlayersCharts(String path, String fileName) {
+        this.path = path;
+        this.fileName = fileName;
     }
 
-
-    private ArrayList<PlayerChart> saveChareters(ArrayList<String> allContent){
+    /**
+     * Method to save all information of the game and save all Players as ArrayList<PlayerChart> and
+     * keep them from largest to smallest (number of race). And save all years.
+     * @param allContent - all content read
+     * @return - ArrayList<PlayerChart>
+     */
+    private ArrayList<PlayerChart> saveCharacters(ArrayList<String> allContent){
         this.allContentList = allContent;
         this.title = allContent.get(0);
         this.population = allContent.get(1);
@@ -69,21 +79,27 @@ public class PlayersCharts {
         return playerChartArrayList;
     }
 
-    public PlayersCharts(String path, String fileName) {
-        this.path = path;
-        this.fileName = fileName;
-    }
-
-    public ArrayList<PlayerChart> getAllPlayerNames(String year){
+    /**
+     * Getter of all players by year
+     * @param year - String year to bring players
+     * @return - return the players
+     */
+    public ArrayList<PlayerChart> getAllPlayerNamesByYear(String year){
         ArrayList<PlayerChart> playerChartArrayList = new ArrayList<>();
         for (int i = 0; i < this.getPlayerCharts().size(); i++){
-            if (this.getPlayerCharts().get(i).getDate().equals(year)){
+            if (this.getPlayerCharts().get(i).getYear().equals(year)){
                 playerChartArrayList.add(this.getPlayerCharts().get(i));
             }
         }
         return playerChartArrayList;
     }
 
+    /**
+     * Method to crate statics file and save.
+     * @param fileName - Name of file.
+     * @return - Path where the file will be saved.
+     * @throws IOException - Exception for any error on File.write
+     */
     public String createStatics(String fileName) throws IOException {
         Date date = new Date();
         String newPath = date.getHours()+"-"+date.getMinutes()+"-"+date.getSeconds()+"-"+date.getTime()+"-"+fileName;
@@ -100,66 +116,83 @@ public class PlayersCharts {
         return Paths.get("").toAbsolutePath() + "/files/" + newPath;
     }
 
-    public int getNumberOfLines() {
-        return numberOfLines;
-    }
 
-    public void setNumberOfLines(int numberOfLines) {
-        this.numberOfLines = numberOfLines;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
+    /**
+     * Setter to set content (content is the string read of file)
+     * @param content - content to change
+     */
     public void setContent(String content) {
         this.content = content;
     }
 
-    public String getPath() {
-        return path;
-    }
-
-    public String getFileName() {
-        return fileName;
-    }
-
+    /**
+     * Getter to get title
+     * @return - String title
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * Getter to get population
+     * @return - String population
+     */
     public String getPopulation() {
         return population;
     }
 
+    /**
+     * Getter to get sources
+     * @return - String sources
+     */
     public String getSources() {
         return sources;
     }
 
+    /**
+     * Getter to get all players
+     * @return - ArrayList<PlayerChart> players
+     */
     public ArrayList<PlayerChart> getPlayerCharts() {
         return playerCharts;
     }
 
+    /**
+     * Getter to get length of data set
+     * @return - int length
+     */
     public int getSectionLength() {
         return sectionLength;
     }
 
-    public ArrayList<String> getAllContentList() {
-        return allContentList;
-    }
-
+    /**
+     * Getter to get first year
+     * @return - int year
+     */
     public int getFirstYear(){
         return 0;
     }
 
+    /**
+     * Getter to get last year
+     * @return - int last year
+     */
     public int getLastYear(){
         return this.endYear;
     }
 
-    public void setEndYear(){
+    /**
+     * Setter to set last year
+     */
+    private void setEndYear(){
         this.endYear = this.allYears.size();
     }
 
+    /**
+     * Getter to get the year in list allYears
+     * @param year - int year
+     * @return - String year
+     */
     public String getYear(int year){
         return this.allYears.get(year);
     }

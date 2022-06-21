@@ -199,6 +199,6 @@ public class BarRacerBoardV2 extends StackPane implements View {
     @Override
     public void updatePlayers(int year) {
         this.currentYear = this.game.getYear(year);
-        this.createBars(this.game.getAllPlayerNames(this.game.getYear(year)));
+        this.createBars(this.game.getAllPlayerNamesByYear(this.game.getYear(year)));
     }
 }

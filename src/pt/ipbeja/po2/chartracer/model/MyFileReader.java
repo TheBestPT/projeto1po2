@@ -15,11 +15,15 @@ import java.util.Scanner;
  */
 
 public class MyFileReader {
-
     public static final String EOL = System.getProperty("line.separator");
     public static final String[] ALLOWEDFILES = new String[] {"cities.txt", "endgame.txt", "game-of-thrones.txt", "brands.txt", "countries.txt", "cities-usa.txt", "movies.txt", "baby-names.txt", "football.txt"};
 
 
+    /**
+     * Method to read the file and return a String with the content
+     * @param file - File to read
+     * @return - String content of the file
+     */
     public String read(File file) {
         StringBuilder s = new StringBuilder();
         try (Scanner scanner = new Scanner(file)) {
@@ -28,27 +32,19 @@ public class MyFileReader {
             }
         } catch (FileNotFoundException e) {
             System.out.println("Error file not found!");
-            Platform.exit(); // System.exit(1);
-        }
-        return s.toString();
-    }
-
-    public String readOneLine(File file){
-        StringBuilder s = new StringBuilder();
-        try (Scanner scanner = new Scanner(file)){
-            if (scanner.hasNextLine())
-                s.append(scanner.nextLine()).append(EOL);
-        }   catch (FileNotFoundException e) {
-            System.out.println("Error file not found!");
-            Platform.exit(); // System.exit(1);
+            Platform.exit();
         }
         return s.toString();
     }
 
 
+    /**
+     * Method like read but return a ArrayList of String
+     * @param file - File to read
+     * @return - ArrayList<String>
+     */
     public ArrayList<String> readLineByLine(File file){
         ArrayList<String> lines = new ArrayList<>();
-        int i = 0;
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 lines.add(scanner.nextLine());
@@ -60,19 +56,11 @@ public class MyFileReader {
     }
 
 
-
-    public int getLinesNumber(File file){
-        int numberOfLines = 0;
-        try (Scanner scanner = new Scanner(file)){
-            while(scanner.hasNextLine())
-                ++numberOfLines;
-        } catch (FileNotFoundException e) {
-            System.out.println("Error file not found!");
-            return -1;
-        }
-        return numberOfLines;
-    }
-
+    /**
+     * Verify if the file choosen in FileChooserBoard its allowed.
+     * @param file - File to verify
+     * @return - int if it's allowed return 1 if not -1
+     */
     public static int verifyFile(File file){
         for (String allowedfile : MyFileReader.ALLOWEDFILES) {
             if (allowedfile.equals(file.getName())) return 1;

@@ -11,6 +11,11 @@ import java.util.ArrayList;
 
 public interface View {
 
+    /**
+     * 
+     * @param fileChoosed
+     * @return
+     */
     ArrayList<PlayerChart> getPlayers(String fileChoosed);
 
     void updatePlayers(int year);

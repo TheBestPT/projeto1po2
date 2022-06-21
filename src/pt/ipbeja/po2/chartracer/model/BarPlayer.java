@@ -15,16 +15,20 @@ import javafx.scene.text.Text;
  */
 
 public class BarPlayer extends StackPane {
+    public static final double HEIGTH = 40;
+    public static final int MAX_VALUE = 1000;
     private String numberRace;
     private String playerName;
     private double width;
-    public static final double HEIGTH = 40;
-    private final Color[] colorsList = {Color.rgb(188, 244, 222), Color.rgb(205, 229, 215), Color.rgb(222, 214, 209), Color.rgb(238, 198, 202), Color.rgb(255, 183, 195)};
-    private int lastColor = -1;
     private Color colorSeted;
-    public static int MAX_VALUE = 1000;
 
 
+    /**
+     * (Constructor class) To create a bar is necessary at least width, number of race and player name
+     * @param width
+     * @param numberRace
+     * @param playerName
+     */
     public BarPlayer(double width, String numberRace, String playerName){
         this.width = width;
         this.numberRace = numberRace;
@@ -33,7 +37,7 @@ public class BarPlayer extends StackPane {
     }
 
     /**
-     *
+     * (Constructor class) It's possible to create player with a color
      * @param width
      * @param numberRace
      * @param playerName
@@ -46,63 +50,31 @@ public class BarPlayer extends StackPane {
         this.createBar(color);
     }
 
+    /**
+     * Method to create a bar it's basicly a Rectangle with two texts one is for number and the other is for name
+     * And all this inside a HBox
+     * (we used HBox because its the same of VBox but in horizontal) and inside a Stack Pane
+     * @param color
+     */
     private void createBar(Color color){
         HBox hBox = new HBox();
         Rectangle rectangle = new Rectangle(this.width, HEIGTH);
         Text numberRace = new Text(this.getNumberRace());
         this.setAlignment(Pos.CENTER_LEFT);
         Text playerName = new Text(this.playerName);
-        this.colorSeted = color ;//== null ? this.generateColor() : color
+        this.colorSeted = color;
         rectangle.setFill(this.colorSeted);
         hBox.getChildren().addAll(rectangle, numberRace);
         this.setPadding(new Insets(2, 2, 2, 2));
         this.getChildren().addAll(hBox, playerName);
     }
 
-    /*public Color getColorSeted() {
-        return colorSeted;
-    }
-
-    public void setColorSeted(Color colorSeted) {
-        this.colorSeted = colorSeted;
-    }
-
-    public Color generateColor(){
-        if (this.lastColor == -1){
-            this.lastColor = (int) (Math.random() * this.colorsList.length - 1);
-            return this.colorsList[this.lastColor];
-        }
-        int color = (int) (Math.random() * this.colorsList.length - 1);
-        do{
-            color = (int) (Math.random() * this.colorsList.length - 1);
-        }while (this.lastColor == color);
-        this.lastColor = color;
-        return colorsList[color];
-    }*/
-
     /**
-     *
+     * Getter for number of race of a bar
      * @return
      */
     public String getNumberRace() {
         return numberRace;
     }
-
-    public void setNumberRace(String numberRace) {
-        this.numberRace = numberRace;
-    }
-
-    public String getPlayerName() {
-        return playerName;
-    }
-
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
-
-    public void setNumberRacer(double numberRacer) {
-        this.numberRace = numberRace;
-    }
-
 
 }

@@ -54,28 +54,8 @@ class MyFileReaderTest {
             outText = fileReader.readLineByLine(file);
             players = new PlayersCharts(file.getAbsolutePath(), file.getName(), outText);
             for (int i = 0; i < players.getPlayerCharts().size(); i++)
-                System.out.println("Date: "+players.getPlayerCharts().get(i).getDate()+" Player name: "+players.getPlayerCharts().get(i).getPlayerName()+" Numer: "+players.getPlayerCharts().get(i).getNumber());
+                System.out.println("Date: "+players.getPlayerCharts().get(i).getYear()+" Player name: "+players.getPlayerCharts().get(i).getPlayerName()+" Numer: "+players.getPlayerCharts().get(i).getNumber());
         }
-    }
-
-    @Test
-    void testManySections() {
-        MyFileReader fileReader = new MyFileReader();
-        File file = new File(Paths.get("").toAbsolutePath()+"/files/cities.txt");
-        PlayersCharts players;
-        try {
-            ArrayList<String> outText = new ArrayList<>();
-            if (file != null){
-                outText = fileReader.readLineByLine(file);
-                players = new PlayersCharts(file.getAbsolutePath(), file.getName(), outText);
-                System.out.println("Section length: "+players.getSectionLength());
-            }
-            //System.out.println(outText);
-        } catch (Exception e){
-            System.out.println(e);
-            System.out.println("File not found");
-        }
-
     }
 
     @Test
@@ -89,10 +69,10 @@ class MyFileReaderTest {
         PlayersCharts players = new PlayersCharts(file.getAbsolutePath(), file.getName(), outText);
         BufferedWriter writer = new BufferedWriter(new FileWriter(pathNewFile, true));
         for (int i = 0; i < 5; i++)
-            writer.append(players.getPlayerCharts().get(i).getDate()+','+players.getPlayerCharts().get(i).getPlayerName()+','+players.getPlayerCharts().get(i).getNumber()+'\n');
+            writer.append(players.getPlayerCharts().get(i).getYear()+','+players.getPlayerCharts().get(i).getPlayerName()+','+players.getPlayerCharts().get(i).getNumber()+'\n');
         writer.append("\n\n");
         for (int i = players.getPlayerCharts().size() - 1; i > players.getPlayerCharts().size() - 5; i--)
-            writer.append(players.getPlayerCharts().get(i).getDate()+','+players.getPlayerCharts().get(i).getPlayerName()+','+players.getPlayerCharts().get(i).getNumber()+'\n');
+            writer.append(players.getPlayerCharts().get(i).getYear()+','+players.getPlayerCharts().get(i).getPlayerName()+','+players.getPlayerCharts().get(i).getNumber()+'\n');
         writer.close();
         /*
         Verify if write it well
@@ -102,10 +82,10 @@ class MyFileReaderTest {
         PlayersCharts playersVerify = new PlayersCharts(file.getAbsolutePath(), file.getName(), outText);
 
         for (int i = 0; i < 5; i++)
-            assertEquals(players.getPlayerCharts().get(i).getDate()+','+players.getPlayerCharts().get(i).getPlayerName()+','+players.getPlayerCharts().get(i).getNumber()+'\n', playersVerify.getPlayerCharts().get(i).getDate()+','+playersVerify.getPlayerCharts().get(i).getPlayerName()+','+playersVerify.getPlayerCharts().get(i).getNumber()+'\n');
+            assertEquals(players.getPlayerCharts().get(i).getYear()+','+players.getPlayerCharts().get(i).getPlayerName()+','+players.getPlayerCharts().get(i).getNumber()+'\n', playersVerify.getPlayerCharts().get(i).getYear()+','+playersVerify.getPlayerCharts().get(i).getPlayerName()+','+playersVerify.getPlayerCharts().get(i).getNumber()+'\n');
 
         for (int i = players.getPlayerCharts().size() - 1; i > players.getPlayerCharts().size() - 5; i--)
-            assertEquals(players.getPlayerCharts().get(i).getDate()+','+players.getPlayerCharts().get(i).getPlayerName()+','+players.getPlayerCharts().get(i).getNumber()+'\n', playersVerify.getPlayerCharts().get(i).getDate()+','+playersVerify.getPlayerCharts().get(i).getPlayerName()+','+playersVerify.getPlayerCharts().get(i).getNumber()+'\n');
+            assertEquals(players.getPlayerCharts().get(i).getYear()+','+players.getPlayerCharts().get(i).getPlayerName()+','+players.getPlayerCharts().get(i).getNumber()+'\n', playersVerify.getPlayerCharts().get(i).getYear()+','+playersVerify.getPlayerCharts().get(i).getPlayerName()+','+playersVerify.getPlayerCharts().get(i).getNumber()+'\n');
 
         System.out.println("The file was write with sucess");
     }
