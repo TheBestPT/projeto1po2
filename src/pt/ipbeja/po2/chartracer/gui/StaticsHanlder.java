@@ -35,9 +35,9 @@ public class StaticsHanlder implements EventHandler<ActionEvent> {
     public void handle(ActionEvent actionEvent)  {
         CheckMenuItem check = (CheckMenuItem) actionEvent.getSource();
         Alert info = new Alert(Alert.AlertType.INFORMATION);
+        info.setTitle("File will be genereted");
+        info.setHeaderText("File will be generated after game close in: "+ Paths.get("").toAbsolutePath() + "/files/HH-MM-SS-statistics-nameOfFile.txt");
         if (check.isSelected()){
-            info.setTitle("File will be genereted");
-            info.setHeaderText("File will be generated after game close in: "+ Paths.get("").toAbsolutePath() + "/files/HH-MM-SS-nameOfFile.txt");
             this.view.setStatics(true);
             info.showAndWait();
             return;

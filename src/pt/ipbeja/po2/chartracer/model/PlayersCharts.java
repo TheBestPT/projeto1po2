@@ -102,7 +102,7 @@ public class PlayersCharts {
      */
     public String createStatics(String fileName) throws IOException {
         Date date = new Date();
-        String newPath = date.getHours()+"-"+date.getMinutes()+"-"+date.getSeconds()+"-"+date.getTime()+"-"+fileName;
+        String newPath = date.getHours()+"-"+date.getMinutes()+"-"+date.getSeconds()+"-"+date.getTime()+"-statistics-"+fileName;
         int media = this.getPlayerCharts().size()/this.getLastYear();
         List<String> contentToSave = new ArrayList<>();
         contentToSave.add("Number of data sets in file: "+this.getLastYear());

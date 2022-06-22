@@ -1,5 +1,6 @@
 package pt.ipbeja.po2.chartracer.model;
 
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -36,6 +37,8 @@ public class Util {
     public static final double HEIGTH_WINDOW = Util.HEIGTH_BAR * Util.NUMBER_OF_BARS+220;
 
     public static final double WIDTH_WINDOW = Util.MAX_VALUE_WIDTH +200;
+
+    public static final Color[] colorsList = {Color.rgb(188, 244, 222), Color.rgb(205, 229, 215), Color.rgb(222, 214, 209), Color.rgb(238, 198, 202), Color.rgb(255, 183, 195), Color.rgb(113, 128, 172), Color.rgb(43, 69, 112), Color.rgb(228, 146, 115), Color.rgb(163, 122, 116)};
 
     /**
      * Simple method to return a map with all speeds to thread depending on file read

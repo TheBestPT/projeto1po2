@@ -23,8 +23,6 @@ import java.util.Map;
  */
 
 public class BarRacerBoard extends StackPane implements View {
-    private final String[] exceptionTimes = new String[]{"end-game.txt", "game-of-thrones.txt"};
-    private ArrayList<BarPlayer> rectanglePlayers = new ArrayList<>();
     private ArrayList<PlayerChart> players;
     private String fileName;
     private VBox vBox = new VBox();
@@ -37,7 +35,6 @@ public class BarRacerBoard extends StackPane implements View {
     private ArrayList<BarPlayer> currentPlayers = new ArrayList<>();
     private Model model;
     private String currentYear;
-    private final Color[] colorsList = {Color.rgb(188, 244, 222), Color.rgb(205, 229, 215), Color.rgb(222, 214, 209), Color.rgb(238, 198, 202), Color.rgb(255, 183, 195)};
     private int lastColor = -1;
     private Map<String, Color> usedColors = new HashMap<>();
 
@@ -118,10 +115,10 @@ public class BarRacerBoard extends StackPane implements View {
     public Color generateColor(){
         int color = 0;
         do{
-            color = (int) (Math.random() * this.colorsList.length - 1);
+            color = (int) (Math.random() * Util.colorsList.length - 1);
         }while (this.lastColor == color);
         this.lastColor = color;
-        return colorsList[color];
+        return Util.colorsList[color];
     }
 
     /**
