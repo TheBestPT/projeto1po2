@@ -11,7 +11,7 @@ import pt.ipbeja.po2.chartracer.model.View;
 import pt.ipbeja.po2.chartracer.model.ViewFileChooser;
 
 /**
- * Escola Superior de Tecnologia e Gestão do
+ * Escola Superior de Tecnologia e Gestão
  * Instituto Politécnico de Beja
  * @author José Francisco - 22896, Patrícia Berenguer - 22893
  */
@@ -30,7 +30,7 @@ public class FileChooserBoard extends VBox implements ViewFileChooser {
     private boolean staticsSelected = false;
 
     /**
-     * (Constuctor class) Call createMain(), for create the first window in the App.
+     * (Constuctor class) Call createMain(), to create the first window in the App.
      * @param principalStage
      */
     public FileChooserBoard(Stage principalStage){
@@ -98,7 +98,7 @@ public class FileChooserBoard extends VBox implements ViewFileChooser {
     }
 
     /**
-     * (Interface ViewFileChooser Method) Get option menu to hidden in game.
+     * (Interface ViewFileChooser Method) Get option menu to hide in the game.
      * @return
      */
     @Override
@@ -149,7 +149,7 @@ public class FileChooserBoard extends VBox implements ViewFileChooser {
     }
 
     /**
-     * (Interface ViewFileChooser Method) Get if game is running or not.
+     * (Interface ViewFileChooser Method) Get if the game is running or not.
      * @return boolean
      */
     @Override
