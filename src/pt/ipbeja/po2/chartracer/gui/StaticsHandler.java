@@ -9,7 +9,7 @@ import pt.ipbeja.po2.chartracer.model.ViewFileChooser;
 import java.nio.file.Paths;
 
 /**
- * Escola Superior de Tecnologia e Gestão do
+ * Escola Superior de Tecnologia e Gestão
  * Instituto Politécnico de Beja
  * @author José Francisco - 22896, Patrícia Berenguer - 22893
  */
@@ -18,7 +18,7 @@ public class StaticsHandler implements EventHandler<ActionEvent> {
     private ViewFileChooser view;
 
     /**
-     * (Constructor class) Bring view to use the methods on FileChooserBoard to choose if the user want statics file
+     * (Constructor class) Bring view to use the methods on FileChooserBoard to choose if the user wants statics file
      * or not.
      * @param view
      */
@@ -36,7 +36,7 @@ public class StaticsHandler implements EventHandler<ActionEvent> {
         CheckMenuItem check = (CheckMenuItem) actionEvent.getSource();
         Alert info = new Alert(Alert.AlertType.INFORMATION);
         info.setTitle("File will be genereted");
-        info.setHeaderText("File will be generated after game close in: "+ Paths.get("").toAbsolutePath() + "/files/HH-MM-SS-statistics-nameOfFile.txt");
+        info.setHeaderText("File will be generated, after the game started, in : "+ Paths.get("").toAbsolutePath() + "/files/HH-MM-SS-statistics-nameOfFile.txt");
         if (check.isSelected()){
             this.view.setStatics(true);
             info.showAndWait();
