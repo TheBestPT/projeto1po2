@@ -5,7 +5,7 @@ import javafx.application.Platform;
 import java.io.IOException;
 
 /**
- * Escola Superior de Tecnologia e Gestão do
+ * Escola Superior de Tecnologia e Gestão
  * Instituto Politécnico de Beja
  * @author José Francisco - 22896, Patrícia Berenguer - 22893
  */
@@ -19,8 +19,8 @@ public class Model {
     private boolean generateStatics;
 
     /**
-     * (Constructor class) This class is for use thread to make an animation for the app the thread will update
-     * the bars in x milliseconds
+     * (Constructor class) This class is for use thread to make an animation for the app.
+     * The thread will update the bars in x milliseconds
      * @param view - View for call methods inside BarRacerBoard via View (Interface)
      * @param firstYear - First frame of the app years are the indexes of all players to run
      * @param lastYear - Last year
@@ -78,7 +78,7 @@ public class Model {
 
     /**
      * Bring next players for next frame.
-     * @param year - int year is the "index" of next players
+     * @param year - int year is the "index" of the next players
      */
     public void updatePlayers(int year){
         this.view.updatePlayers(year);
@@ -86,7 +86,7 @@ public class Model {
 
     /**
      * Call create statics.
-     * @throws IOException - This exception is necessary for writing file.
+     * @throws IOException - This exception is necessary to write the file.
      */
     public void createStatics() throws IOException {
         this.view.createStatics();
