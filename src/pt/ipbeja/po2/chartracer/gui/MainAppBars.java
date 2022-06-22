@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 import pt.ipbeja.po2.chartracer.model.Util;
 
 /**
- * Escola Superior de Tecnologia e Gestão do
+ * Escola Superior de Tecnologia e Gestão
  * Instituto Politécnico de Beja
  * @author José Francisco - 22896, Patrícia Berenguer - 22893
  */
