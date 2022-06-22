@@ -3,7 +3,7 @@ package pt.ipbeja.po2.chartracer.model;
 import javafx.scene.control.MenuBar;
 
 /**
- * Escola Superior de Tecnologia e Gestão do
+ * Escola Superior de Tecnologia e Gestão
  * Instituto Politécnico de Beja
  * @author José Francisco - 22896, Patrícia Berenguer - 22893
  */
@@ -59,7 +59,7 @@ public interface ViewFileChooser {
     void setPlaying();
 
     /**
-     * Get option menu to hidden in game.
+     * Get option menu to hide in the game.
      * @return
      */
     MenuBar getOptionMenu();
