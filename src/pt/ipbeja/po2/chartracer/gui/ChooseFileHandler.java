@@ -2,7 +2,6 @@ package pt.ipbeja.po2.chartracer.gui;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
@@ -14,7 +13,7 @@ import pt.ipbeja.po2.chartracer.model.ViewFileChooser;
 import java.io.File;
 
 /**
- * Escola Superior de Tecnologia e Gestão do
+ * Escola Superior de Tecnologia e Gestão
  * Instituto Politécnico de Beja
  * @author José Francisco - 22896, Patrícia Berenguer - 22893
  */
@@ -25,7 +24,7 @@ public class ChooseFileHandler implements EventHandler<ActionEvent> {
     private ViewFileChooser view;
 
     /**
-     * (Constructor class) Bring stage, vBox and view for choose file to open a choose file window.
+     * (Constructor class) Bring stage, vBox and view to open a choose file window.
      * @param stage
      * @param vBox
      * @param view
@@ -38,7 +37,7 @@ public class ChooseFileHandler implements EventHandler<ActionEvent> {
 
     /**
      * (Interface EventHandler<ActionEvent> Method) When the button is pressed a window to choose the file will open,
-     * after the file been chosen the file will be verified, and if this was correct the game will start
+     * after the file been chosen the file will be verified
      * @param actionEvent
      */
     @Override
