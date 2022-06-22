@@ -12,12 +12,11 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Escola Superior de Tecnologia e Gestão do
+ * Escola Superior de Tecnologia e Gestão
  * Instituto Politécnico de Beja
  * @author José Francisco - 22896, Patrícia Berenguer - 22893
  */
@@ -42,7 +41,7 @@ public class BarRacerBoard extends StackPane implements View {
     /**
      * (Constructor class) Begin app. Read file, generate bars, organize window and set window elements.
      * @param fileName - String with file name
-     * @param generateStatics - boolean to now if needs to generate statics file
+     * @param generateStatics - boolean to know if needs to generate statics file
      */
     public BarRacerBoard(String fileName, boolean generateStatics) {
         this.players = this.getPlayers(Paths.get("").toAbsolutePath()+"/files/"+fileName);
@@ -60,9 +59,9 @@ public class BarRacerBoard extends StackPane implements View {
     }
 
     /**
-     * Method to set title year sorce margins etc. And add to vBox.
+     * Method to set title year source margins etc. And add to vBox.
      */
-    private void setWindowElments(){
+    private void setWindowElements(){
         Text title = new Text(this.title);
         Text population = new Text(this.population);
         Text year = new Text(this.currentYear);
@@ -84,9 +83,9 @@ public class BarRacerBoard extends StackPane implements View {
      * @param players - current players according current year
      */
     private void createBars(ArrayList<PlayerChart> players){
-        this.setWindowElments();
+        this.setWindowElements();
         ArrayList<BarPlayer> barPlayers = new ArrayList<>();
-        for (int i = 0; i < (Math.min(Util.NUMBER_OF_BARS, players.size())); i++){//NUMBER_OF_BARS > players.size() ? players.size() : NUMBER_OF_BARS
+        for (int i = 0; i < (Math.min(Util.NUMBER_OF_BARS, players.size())); i++){
             barPlayers.add(new BarPlayer(this.calculateWidth(players.get(i).getNumber(), players.get(0).getNumber()), String.valueOf(players.get(i).getNumber()), players.get(i).getPlayerName(), this.usedColors.get(players.get(i).getPlayerName())));
             this.vBox.getChildren().add(barPlayers.get(i));
         }
@@ -96,7 +95,7 @@ public class BarRacerBoard extends StackPane implements View {
 
 
     /**
-     * Genrate colors for all players and save in map
+     * Generate colors for all players and save in map
      * @param players - all players
      * @return - color map
      */
@@ -109,8 +108,8 @@ public class BarRacerBoard extends StackPane implements View {
     }
 
     /**
-     * Generate a random color different from position before
-     * @return - retorn generated color
+     * Generate a random color different from the previous position
+     * @return - return generated color
      */
     public Color generateColor(){
         int color = 0;
@@ -125,7 +124,7 @@ public class BarRacerBoard extends StackPane implements View {
      * Method to calculate width. When bars reach 1000 of length they stop to grow. And the rest of the bars
      * will be resized with the length of the bigger bar
      * @param currentWidth
-     * @param bigger - width of the bigger bar in window
+     * @param bigger - width of the biggest bar in the window
      * @return - width to set
      */
     public double calculateWidth(int currentWidth, int bigger){
@@ -177,7 +176,7 @@ public class BarRacerBoard extends StackPane implements View {
     /**
      * (Interface View Method) Call create statics.
      * @return - String with path of statics file.
-     * @throws IOException - This exception is necessary for writing file.
+     * @throws IOException - This exception is necessary to write the file.
      */
     @Override
     public String createStatics() throws IOException {
@@ -186,7 +185,7 @@ public class BarRacerBoard extends StackPane implements View {
 
     /**
      * (Interface View Method) Bring next players for next frame.
-     * @param year - int year is the "index" of next players
+     * @param year - int year is the "index" for the next players
      */
     @Override
     public void updatePlayers(int year) {
