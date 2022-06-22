@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 /**
- * Escola Superior de Tecnologia e Gestão do
+ * Escola Superior de Tecnologia e Gestão
  * Instituto Politécnico de Beja
  * @author José Francisco - 22896, Patrícia Berenguer - 22893
  */
@@ -56,9 +56,9 @@ public class MyFileReader {
 
 
     /**
-     * Verify if the file choosen in FileChooserBoard its allowed.
+     * Verify if the file chosen in FileChooserBoard its allowed.
      * @param file - File to verify
-     * @return - int if it's allowed return 1 if not -1
+     * @return - int, if the file is allowed, return 1 and if not return -1
      */
     public static int verifyFile(File file){
         for (String allowedfile : Util.ALLOWEDFILES) {
