@@ -4,8 +4,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import pt.ipbeja.po2.chartracer.model.Util;
@@ -60,7 +58,7 @@ public class FileChooserBoard extends VBox implements ViewFileChooser {
         this.startButton.setOnAction(new PlayButtonHandler(this, this));
         this.dataMenu.getItems().add(this.staticsCheck);
         this.staticsCheck.setSelected(this.staticsSelected);
-        this.staticsCheck.setOnAction(new StaticsHanlder(this));
+        this.staticsCheck.setOnAction(new StaticsHandler(this));
         exit.setOnAction(new ExitButtonHandler(this));
         this.optionMenu = new MenuBar(fileMenu);
         this.optionMenu.getMenus().add(this.dataMenu);

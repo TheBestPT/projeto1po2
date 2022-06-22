@@ -14,7 +14,7 @@ import java.nio.file.Paths;
  * @author José Francisco - 22896, Patrícia Berenguer - 22893
  */
 
-public class StaticsHanlder implements EventHandler<ActionEvent> {
+public class StaticsHandler implements EventHandler<ActionEvent> {
     private ViewFileChooser view;
 
     /**
@@ -22,7 +22,7 @@ public class StaticsHanlder implements EventHandler<ActionEvent> {
      * or not.
      * @param view
      */
-    public StaticsHanlder(ViewFileChooser view) {
+    public StaticsHandler(ViewFileChooser view) {
         this.view = view;
     }
 
