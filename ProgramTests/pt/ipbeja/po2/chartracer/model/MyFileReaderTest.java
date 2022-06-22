@@ -1,6 +1,5 @@
 package pt.ipbeja.po2.chartracer.model;
 
-import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
@@ -13,7 +12,7 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * Escola Superior de Tecnologia e Gestão do
+ * Escola Superior de Tecnologia e Gestão
  * Instituto Politécnico de Beja
  * @author José Francisco - 22896, Patrícia Berenguer - 22893
  */
@@ -21,8 +20,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class MyFileReaderTest {
 
     /**
-     * Req E2.1 Read a file and see if what was read was what was expected.
-     * @throws FileNotFoundException - If file not found trows an exception
+     * Req E2.1 Read a file and verify if the file that was read was what was expected.
+     * @throws FileNotFoundException - If file not found throws an exception
      */
     @Test
     void test1() throws FileNotFoundException {
@@ -37,10 +36,9 @@ class MyFileReaderTest {
         }
         savedFile = new PlayersCharts(file.getAbsolutePath(), file.getName(), outText);
         savedFile.setContent(outTextString);
-        //System.out.println(outTextString);
         assertEquals(savedFile.getTitle(), "The most populous cities in the world from 1500 to 2018");
         assertEquals(savedFile.getPopulation(), "Population (thousands)");
-        assertEquals(savedFile.getSources(), "Sources: SEDAC; United Nations; Demographia");
+        assertEquals(savedFile.getSources(), "Sources: SEDAC; United Nations; Demography");
         int counter = 0;
         for (int i = 4; i < outText.size(); i++){
             String[] splitedContent = outText.get(i).split(",");
@@ -48,12 +46,12 @@ class MyFileReaderTest {
                 ++counter;
         }
         assertEquals(counter, savedFile.getPlayerCharts().size());
-        System.out.println("File verified with sucess");
+        System.out.println("File verified with success");
     }
 
     /**
      * Req E2.2 Order data in natural order using Comparable<T>.
-     * @throws FileNotFoundException - If file not found trows an exception
+     * @throws FileNotFoundException - If file not found throws an exception
      */
     @Test
     void test2() throws FileNotFoundException{
@@ -66,10 +64,10 @@ class MyFileReaderTest {
             players = new PlayersCharts(file.getAbsolutePath(), file.getName(), outText);
             for (int i = 0; i < players.getPlayerCharts().size(); i++){
                 assert(players.getPlayerCharts().get(i).getNumber() >= players.getPlayerCharts().get(i).getNumber());
-                System.out.println("Date: "+players.getPlayerCharts().get(i).getYear()+" Player name: "+players.getPlayerCharts().get(i).getPlayerName()+" Numer: "+players.getPlayerCharts().get(i).getNumber());
+                System.out.println("Date: "+players.getPlayerCharts().get(i).getYear()+" Player name: "+players.getPlayerCharts().get(i).getPlayerName()+" Number: "+players.getPlayerCharts().get(i).getNumber());
             }
         }
-        System.out.println("Ordered with sucess");
+        System.out.println("Ordered with success");
     }
 
     /**
@@ -93,7 +91,7 @@ class MyFileReaderTest {
             writer.append(players.getPlayerCharts().get(i).getYear()+','+players.getPlayerCharts().get(i).getPlayerName()+','+players.getPlayerCharts().get(i).getNumber()+'\n');
         writer.close();
         /*
-        Verify if write it well
+        Verify if write gone well
          */
         File fileToVerify = new File(pathNewFile);
         ArrayList<String> outTextVerify = fileReader.readLineByLine(file);
@@ -104,13 +102,13 @@ class MyFileReaderTest {
 
         for (int i = players.getPlayerCharts().size() - 1; i > players.getPlayerCharts().size() - 5; i--)
             assertEquals(players.getPlayerCharts().get(i).getYear()+','+players.getPlayerCharts().get(i).getPlayerName()+','+players.getPlayerCharts().get(i).getNumber()+'\n', playersVerify.getPlayerCharts().get(i).getYear()+','+playersVerify.getPlayerCharts().get(i).getPlayerName()+','+playersVerify.getPlayerCharts().get(i).getNumber()+'\n');
-        System.out.println("The file was write with sucess");
+        System.out.println("The file was write with success");
     }
 
 
     /**
-     * Basicly the same of test1() but returning an ArrayList<String>
-     * @throws FileNotFoundException - If file not found trows an exception
+     * Basically the same of test1() but returning an ArrayList<String>
+     * @throws FileNotFoundException - If file not found throws an exception
      */
     @Test
     void test1WithLines() throws FileNotFoundException{
@@ -127,8 +125,8 @@ class MyFileReaderTest {
 
 
     /**
-     * Test how many lines as the file
-     * @throws FileNotFoundException - If file not found trows an exception
+     * Test how many lines the file have
+     * @throws FileNotFoundException - If file not found throws an exception
      */
     @Test
     void testHowManyLinesFile() throws FileNotFoundException{
@@ -145,7 +143,7 @@ class MyFileReaderTest {
 
     /**
      * Test to create statics file
-     * @throws IOException - exception if write go wrong
+     * @throws IOException - exception if write gone wrong
      */
     @Test
     void testContentSave() throws IOException {
