@@ -69,6 +69,7 @@ public class BarRacerBoard extends StackPane implements View {
         year.setFont(Util.YEARFONT);
         year.setFill(Color.GRAY);
         source.setFill(Color.GRAY);
+        source.setFont(Util.SOURCEFONT);
         StackPane.setMargin(year, new Insets(2, 2, 2, 2));
         StackPane.setMargin(source, new Insets(2, 2, 2, 2));
         this.setAlignment(Pos.BOTTOM_RIGHT);
@@ -86,7 +87,7 @@ public class BarRacerBoard extends StackPane implements View {
         this.setWindowElements();
         ArrayList<BarPlayer> barPlayers = new ArrayList<>();
         for (int i = 0; i < (Math.min(Util.NUMBER_OF_BARS, players.size())); i++){
-            barPlayers.add(new BarPlayer(this.calculateWidth(players.get(i).getNumber(), players.get(0).getNumber()), String.valueOf(players.get(i).getNumber()), players.get(i).getPlayerName(), this.usedColors.get(players.get(i).getPlayerName())));
+            barPlayers.add(new BarPlayer(this.calculateWidthBar(players.get(i).getNumber(), players.get(0).getNumber()), String.valueOf(players.get(i).getNumber()), players.get(i).getPlayerName(), this.usedColors.get(players.get(i).getPlayerName())));
             this.vBox.getChildren().add(barPlayers.get(i));
         }
         this.getChildren().add(this.vBox);
@@ -127,12 +128,15 @@ public class BarRacerBoard extends StackPane implements View {
      * @param bigger - width of the biggest bar in the window
      * @return - width to set
      */
-    public double calculateWidth(int currentWidth, int bigger){
-        if (bigger < Util.MAX_VALUE_WIDTH) return currentWidth;
-
-        if (bigger == currentWidth) return Util.MAX_VALUE_WIDTH;
-
-        return (currentWidth * Util.MAX_VALUE_WIDTH) / bigger;
+    public double calculateWidthBar(int currentWidth, int bigger){
+        int result = 0;
+        if (bigger < Util.MAX_VALUE_WIDTH)
+            result = currentWidth;
+        else if (bigger == currentWidth)
+            result = Util.MAX_VALUE_WIDTH;
+        else
+            result = (currentWidth * Util.MAX_VALUE_WIDTH) / bigger;
+        return  result;
     }
 
     /**
