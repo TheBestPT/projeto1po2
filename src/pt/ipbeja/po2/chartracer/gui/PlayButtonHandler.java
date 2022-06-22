@@ -22,7 +22,7 @@ public class PlayButtonHandler implements EventHandler<ActionEvent> {
     }
 
     /**
-     * (Interface EventHandler<ActionEvent> Method) When the button is pressed the game start
+     * (Interface EventHandler<ActionEvent> Method) When the button is pressed the game will start
      * clear window, add option menu, set alignment top left, set in class is playing and create game
      * @param actionEvent
      */
