@@ -40,7 +40,7 @@ public class Model {
      */
     public void nextBar()  {
         try {
-            if (this.generateStatics) this.view.createStatics();
+            if (this.generateStatics) this.createStatics();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -53,8 +53,8 @@ public class Model {
                 }
                 int tmp = i;
                 Platform.runLater( () -> {
-                    view.removeBars();
-                    view.updatePlayers(tmp);
+                    this.removeBars();
+                    this.updatePlayers(tmp);
                 });
             }
         });
@@ -63,9 +63,32 @@ public class Model {
 
     /**
      * Get thread to stop thread or manipulate
-     * @return
+     * @return Thread
      */
     public Thread getThread() {
         return this.thread;
+    }
+
+    /**
+     * Remove bars of the screen to allocate bars from next frame
+     */
+    public void removeBars(){
+        this.view.removeBars();
+    }
+
+    /**
+     * Bring next players for next frame.
+     * @param year - int year is the "index" of next players
+     */
+    public void updatePlayers(int year){
+        this.view.updatePlayers(year);
+    }
+
+    /**
+     * Call create statics.
+     * @throws IOException - This exception is necessary for writing file.
+     */
+    public void createStatics() throws IOException {
+        this.view.createStatics();
     }
 }

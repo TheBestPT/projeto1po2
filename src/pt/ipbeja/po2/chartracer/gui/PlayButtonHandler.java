@@ -3,6 +3,7 @@ package pt.ipbeja.po2.chartracer.gui;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.VBox;
 import pt.ipbeja.po2.chartracer.model.ViewFileChooser;
 
@@ -27,10 +28,19 @@ public class PlayButtonHandler implements EventHandler<ActionEvent> {
      */
     @Override
     public void handle(ActionEvent actionEvent) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error no  file added.");
+        alert.setHeaderText("You have to choose a file!!");
+        alert.setContentText("You need to choose a file for play the game");
+        if (this.view.getFileName() == null) {
+            alert.showAndWait();
+            return;
+        }
         this.view.clearWindow();
         this.vBox.getChildren().add(this.view.getOptionMenu());
         this.vBox.setAlignment(Pos.TOP_LEFT);
         this.view.setPlaying();
         this.view.createGame(this.view.getFileName());
+        this.view.setFileName(null);
     }
 }
