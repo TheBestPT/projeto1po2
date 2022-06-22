@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 import java.util.*;
 
 /**
- * Escola Superior de Tecnologia e Gestão do
+ * Escola Superior de Tecnologia e Gestão
  * Instituto Politécnico de Beja
  * @author José Francisco - 22896, Patrícia Berenguer - 22893
  */
@@ -95,7 +95,7 @@ public class PlayersCharts {
     }
 
     /**
-     * Method to crate statics file and save.
+     * Method to create statics file and save.
      * @param fileName - Name of file.
      * @return - Path where the file will be saved.
      * @throws IOException - Exception for any error on File.write
@@ -108,7 +108,7 @@ public class PlayersCharts {
         contentToSave.add("Number of data sets in file: "+this.getLastYear());
         contentToSave.add("First date: "+this.getYear(this.getFirstYear()));
         contentToSave.add("Last date: "+this.getYear(this.getLastYear() - 1));
-        contentToSave.add("Avarage number of lines in each data set: "+media);
+        contentToSave.add("Average number of lines in each data set: "+media);
         contentToSave.add("Number of columns in each data set: "+this.allContentList.get(5).split(",").length);
         contentToSave.add("Maximum value considering all data sets: "+this.playerCharts.get(0).getNumber());
         contentToSave.add("Minimum value considering all data sets: "+this.playerCharts.get(this.playerCharts.size() - 1).getNumber());
