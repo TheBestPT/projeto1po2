@@ -54,7 +54,7 @@ public class FileChooserBoard extends VBox implements ViewFileChooser {
         MenuItem exit = new MenuItem("Exit");
         fileMenu.getItems().add(exit);
         this.dataMenu = new Menu("Data");
-        this.staticsCheck = new CheckMenuItem("Statics");
+        this.staticsCheck = new CheckMenuItem("Generate File");
         this.startButton.setOnAction(new PlayButtonHandler(this, this));
         this.dataMenu.getItems().add(this.staticsCheck);
         this.staticsCheck.setSelected(this.staticsSelected);
