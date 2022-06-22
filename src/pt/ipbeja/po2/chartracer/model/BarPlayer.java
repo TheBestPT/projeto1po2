@@ -9,7 +9,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 /**
- * Escola Superior de Tecnologia e Gestão do
+ * Escola Superior de Tecnologia e Gestão
  * Instituto Politécnico de Beja
  * @author José Francisco - 22896, Patrícia Berenguer - 22893
  */
@@ -49,7 +49,7 @@ public class BarPlayer extends StackPane {
     }
 
     /**
-     * Method to create a bar it's basicly a Rectangle with two texts one is for number and the other is for name
+     * Method to create a bar it's basically a Rectangle with two: one is for number and the other is for name
      * And all this inside a HBox
      * (we used HBox because its the same of VBox but in horizontal) and inside a Stack Pane
      * @param color
